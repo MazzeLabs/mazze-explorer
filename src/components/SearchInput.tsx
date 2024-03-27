@@ -2,7 +2,7 @@
 
 import { Menu, Transition } from "@headlessui/react";
 import Magnifier from "./svgs/Magnifier";
-import ChevronDown from "./Layout/ChevronDown";
+import ChevronDown from "./svgs/ChevronDown";
 import { Fragment, useState } from "react";
 
 interface SearchInputProps {
@@ -37,7 +37,10 @@ const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
         className ?? ""
       }`}
     >
-      <Menu as="div" className="relative inline-block text-left text-lg pl-5 min-w-[160px]">
+      <Menu
+        as="div"
+        className="relative inline-block text-left text-lg pl-5 min-w-[160px]"
+      >
         <div>
           <Menu.Button className="flex items-center justify-between whitespace-nowrap text-lg ">
             {FILTERS.find((item) => item.filter === filter)?.name}

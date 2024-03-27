@@ -14,25 +14,25 @@ const Header = () => {
         <div className="flex items-center">
           <Link
             href={"/"}
-            className="text-white hover:brightness-90 active:brightness-95 transition-all leading-[138%] mr-[26px]"
+            className="text-white hover:text-orange transition-all leading-[138%] mr-[26px]"
           >
             Home
           </Link>
           <Link
             href={"/transfer"}
-            className="text-white hover:brightness-90 active:brightness-95 transition-all leading-[138%] mr-[26px]"
+            className="text-white hover:text-orange transition-all leading-[138%] mr-[26px]"
           >
             Transfer
           </Link>
           <Link
             href={"/block"}
-            className="text-white hover:brightness-90 active:brightness-95 transition-all leading-[138%] mr-[26px]"
+            className="text-white hover:text-orange transition-all leading-[138%] mr-[26px]"
           >
             Block
           </Link>
           <Link
             href={"/address"}
-            className="text-white hover:brightness-90 active:brightness-95 transition-all leading-[138%] mr-10"
+            className="text-white hover:text-orange transition-all leading-[138%] mr-10"
           >
             Address
           </Link>
