@@ -8,17 +8,15 @@ body {
 }
 
 *::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
   background-color: #eff1f9;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
-*::-webkit-scrollbar-track {
-  width: 4px;
-  height: 4px;
+*::-webkit-scrollbar-thumb {
   background-color: #c0c0c0;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 @layer utilities {
