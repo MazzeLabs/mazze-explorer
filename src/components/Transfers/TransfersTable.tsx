@@ -17,7 +17,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
             <div className="absolute top-0 -left-4 md:-left-5 -right-4 md:-right-5 bottom-0 bg-slate z-[0] rounded-[10px]" />
             <tr className="md:*:text-lg *:leading-[138%] *:py-2.5 *:font-normal *:text-left *:whitespace-nowrap z-10 relative">
               <th scope="col" className="pr-3">
-                Extrinsic ID
+                Txs hash
               </th>
               <th scope="col" className="px-3">
                 Block
@@ -42,9 +42,23 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
           </thead>
           <tbody className="">
             <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="text-blue px-3">74064712</td>
-              <td className="text-gray-500 px-3">1 min ago</td>
+              <td className="text-blue pr-3">0x073f8aba70…</td>
+              <td className="text-blue px-3">35,152</td>
+              <td className="text-gray-500 px-3">1 secs ago</td>
+              <td className="text-blue px-3">0x21af....9b3840</td>
+              <td className="px-3">
+                <ArrowRight className="text-green" />
+              </td>
+              <td className="text-blue px-3">0x21af....9b3840</td>
+              <td className="px-3">1000</td>
+              <td className="pl-3">
+                <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" />
+              </td>
+            </tr>
+            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+              <td className="text-blue pr-3">0xf8e2cde5a1…</td>
+              <td className="text-blue px-3">35,151</td>
+              <td className="text-gray-500 px-3">2 secs ago</td>
               <td className="text-blue px-3">0x21af....9b3840</td>
               <td className="px-3">
                 <ArrowRight className="text-green" />
@@ -56,9 +70,9 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
               </td>
             </tr>
             <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="text-blue px-3">74064712</td>
-              <td className="text-gray-500 px-3">1 min ago</td>
+              <td className="text-blue pr-3">0xf8e2cde5a1…</td>
+              <td className="text-blue px-3">35,151</td>
+              <td className="text-gray-500 px-3">3 secs ago</td>
               <td className="text-blue px-3">0x21af....9b3840</td>
               <td className="px-3">
                 <ArrowRight className="text-green" />
@@ -70,22 +84,8 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
               </td>
             </tr>
             <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="text-blue px-3">74064712</td>
-              <td className="text-gray-500 px-3">1 min ago</td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-              <td className="px-3">
-                <ArrowRight className="text-green" />
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-              <td className="px-3">512</td>
-              <td className="pl-3">
-                <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" />
-              </td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="text-blue px-3">74064712</td>
+              <td className="text-blue pr-3">0xf8e2cde5a1…</td>
+              <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>
               <td className="text-blue px-3">0x21af....9b3840</td>
               <td className="px-3">
@@ -98,8 +98,8 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
               </td>
             </tr>
             <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="text-blue px-3">74064712</td>
+              <td className="text-blue pr-3">0xf8e2cde5a1…</td>
+              <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>
               <td className="text-blue px-3">0x21af....9b3840</td>
               <td className="px-3">
@@ -112,8 +112,8 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
               </td>
             </tr>
             <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="text-blue px-3">74064712</td>
+              <td className="text-blue pr-3">0xf8e2cde5a1…</td>
+              <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>
               <td className="text-blue px-3">0x21af....9b3840</td>
               <td className="px-3">
@@ -126,8 +126,8 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
               </td>
             </tr>
             <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="text-blue px-3">74064712</td>
+              <td className="text-blue pr-3">0xf8e2cde5a1…</td>
+              <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>
               <td className="text-blue px-3">0x21af....9b3840</td>
               <td className="px-3">

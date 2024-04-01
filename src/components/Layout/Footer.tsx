@@ -12,7 +12,7 @@ const Footer = () => {
         <ScrollTop className="absolute top-0 right-2 -translate-y-1/2" />
         <TextLogo dark className="!text-[28px]" />
         <span className="text-gray-500 leading-[138%] max-md:order-1 max-md:mt-7 text-center">
-          MazzeScan © 2024 - Developed by MazzeScan Team
+          MazzeScan © 2024 - Developed by MazzeLabs
         </span>
         <div className="flex items-center space-x-3 max-md:mt-9">
           <Link
