@@ -54,7 +54,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
                 className="w-[120px] md:w-[160px] xl:w-[200px]"
               />
             </div>
-            <div className="flex flex-col space-y-3 ml-[40px] xl:ml-[60px] min-w-[160px] xl:min-w-[250px]">
+            <div className="flex flex-col space-y-3 ml-[30px] sm:ml-[40px] xl:ml-[60px] w-full max-sm:max-w-[160px] sm:min-w-[160px] xl:min-w-[250px]">
               <div className="flex items-center justify-between">
                 <span className="max-md:text-xs leading-[138%] relative before:content-[''] before:absolute before:top-0 before:bottom-0 before:-left-2.5 md:before:-left-3 before:w-[5px] md:before:w-1.5 before:h-[5px] md:before:h-1.5 before:bg-orange before:rounded-full before:my-auto">
                   Transfer
@@ -75,7 +75,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
               </div>
             </div>
           </div>
-          <div className="flex flex-col space-x-3 md:space-y-3.5 max-md:mt-5 md:ml-[50px] xl:ml-[72px] w-full">
+          <div className="flex flex-col space-y-3 md:space-y-3.5 max-md:mt-5 md:ml-[50px] xl:ml-[72px] w-full">
             <LinearProgressBar
               title="Transfer"
               total={3}

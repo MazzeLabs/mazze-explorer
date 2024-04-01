@@ -7,7 +7,7 @@ import Footer from "@/components/Layout/Footer";
 const oxygen = Oxygen({ weight: ["300", "400", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mazzescan",
+  title: "MazzeScan",
   description: "Mazze network explorer",
 };
 

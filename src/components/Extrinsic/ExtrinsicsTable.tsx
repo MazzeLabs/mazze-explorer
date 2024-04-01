@@ -1,6 +1,5 @@
 import CircleCheck from "../svgs/CircleCheck";
 import CircleMinus from "../svgs/CircleMinus";
-import CircleClose from "../svgs/Failed";
 
 interface ExtrinsicsTableProps {
   className?: string;
@@ -81,7 +80,7 @@ const ExtrinsicsTable: React.FC<ExtrinsicsTableProps> = ({ className }) => {
               <td className="text-blue px-3">0x57af....9b3840</td>
               <td className="text-gray-500 px-3">1 min ago</td>
               <td className="px-3">
-                <CircleMinus className="text-red max-md:w-[18px] max-md:h-[18px]" />
+                <CircleMinus className="text-red w-[18px] md:w-[24px] h-[18px] md:h-[24px]" />
               </td>
               <td className="text-blue px-3">0x21af....9b3840</td>
             </tr>

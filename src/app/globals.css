@@ -19,6 +19,18 @@ body {
   border-radius: 5px;
 }
 
+@media screen and (max-width: 768px) {
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
