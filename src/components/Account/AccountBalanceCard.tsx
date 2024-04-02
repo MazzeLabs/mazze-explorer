@@ -43,7 +43,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
             </div>
           </div>
           <div className="text-lg md:text-xl font-bold leading-[107%]">
-            $3.321
+            $0.01
           </div>
         </div>
         <div className="flex max-md:flex-col items-center mt-[26px] md:mt-[30px] mb-10">
@@ -63,7 +63,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
               </div>
               <div className="flex items-center justify-between">
                 <span className="max-md:text-xs leading-[138%] relative before:content-[''] before:absolute before:top-0 before:bottom-0 before:-left-2.5 md:before:-left-3 before:w-[5px] md:before:w-1.5 before:h-[5px] md:before:h-1.5 before:bg-gray-700 before:rounded-full before:my-auto">
-                  Staking
+                  Locked
                 </span>
                 <span className="text-xs leading-[18px]">2251</span>
               </div>
@@ -84,7 +84,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
               progressClassName="bg-orange"
             />
             <LinearProgressBar
-              title="Staking"
+              title="Locked"
               total={5}
               completed={3}
               barClassName="bg-fore-indigo"

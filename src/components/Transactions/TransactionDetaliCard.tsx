@@ -72,7 +72,8 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         <div className="max-md:mt-2">
           <div className="flex flex-wrap items-center leading-[138%] max-md:text-xs">
             <TriArrowRight className="text-gray-500 mr-1.5" />
-            <span className="text-gray-500">Transfer</span>&nbsp;0.07ETH&nbsp;
+            <span className="text-gray-500">Transfer</span>&nbsp;1,000
+            MAZZE&nbsp;
             <span className="text-gray-500">To</span>
             &nbsp;0xa28072BC...84BBe717c
           </div>
@@ -111,7 +112,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         </div>
         <div className="flex items-center leading-[138%] text-gray-800 max-md:mt-2 max-md:text-xs">
           <Logo className="text-orange w-[12px] md:w-[16px] h-[10px] md:h-[13px] mr-1 md:mr-1.5" />
-          0.07 ETH&nbsp;<span className="text-gray-500">($243.32)</span>
+          1,000 MAZZE&nbsp;<span className="text-gray-500">($100.00)</span>
         </div>
       </div>
       <div className="flex max-md:flex-col items-start">
@@ -119,8 +120,8 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
           Transaction Fee:
         </div>
         <div className="leading-[138%] text-gray-800 max-md:mt-2 max-md:text-xs">
-          0.002028339775917 ETH&nbsp;
-          <span className="text-gray-500">($243.32)</span>
+          1 MAZZE&nbsp;
+          <span className="text-gray-500">($0.01)</span>
         </div>
       </div>
       <div className="flex max-md:flex-col items-start">
@@ -128,8 +129,8 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
           Gas Price:
         </div>
         <div className="leading-[138%] text-gray-800 max-md:mt-2 max-md:text-xs">
-          96.587608377 Gwei&nbsp;
-          <span className="text-gray-500">(0.000000096587608377 ETH)</span>
+          1 Gmazzy&nbsp;
+          <span className="text-gray-500">(0.000000001 MAZZE)</span>
         </div>
       </div>
     </div>

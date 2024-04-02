@@ -33,9 +33,9 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ className }) => {
             <span className="max-md:text-sm leading-[138%]">29</span>
           </div>
           <div className="flex items-center justify-between mt-2 md:mt-2.5">
-            <span className="md:text-lg leading-[138%]">Nonce</span>
+            <span className="md:text-lg leading-[138%]">Account type</span>
             <span className="max-md:text-sm leading-[138%] text-blue">
-              Pool Member
+              Basic
             </span>
           </div>
         </div>

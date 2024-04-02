@@ -11,6 +11,7 @@ import Back from "@/assets/header-back.png";
 import Hambuger from "../svgs/Hambuger";
 import MobileNav from "./MobileNav";
 import { useState } from "react";
+import NetworkSwitch from "./NetworkSwitch";
 
 const Header = () => {
   const pathname = usePathname();
@@ -62,13 +63,7 @@ const Header = () => {
                 Address
               </Link>
             </div>
-            <div
-              className={`p-1.5 md:p-2.5 ${
-                home ? "" : "border"
-              } border-gray-700 bg-dark-blue text-white rounded-[3px] md:rounded-[5px]`}
-            >
-              <Logo className="max-md:w-6 max-md:h-5" />
-            </div>
+            <NetworkSwitch />
           </div>
           <button
             className="border border-gray-700 rounded-[3px] py-1 px-1.5 order-3 md:hidden"

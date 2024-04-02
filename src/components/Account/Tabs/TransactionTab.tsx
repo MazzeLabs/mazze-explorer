@@ -1,18 +1,18 @@
-import ExtrinsicsTable from "@/components/Extrinsic/ExtrinsicsTable";
+import TransactionsTable from "@/components/Transactions/TransactionsTable";
 import Link from "next/link";
 
-const ExtrinsicTab = () => {
+const TransactionTab = () => {
   return (
     <div>
-      <ExtrinsicsTable className="py-4" />
+      <TransactionsTable className="py-4" />
       <Link
         href={"/"}
         className="leading-[138%] text-orange border border-orange py-1 md:py-1.5 px-2.5 md:px-3 rounded-[5px] hover:border-gray-700 transition-all max-md:text-sm"
       >
-        View Other 19 Extrinsics
+        View Other 19 Transactions
       </Link>
     </div>
   );
 };
 
-export default ExtrinsicTab;
+export default TransactionTab;

@@ -5,6 +5,44 @@ import CircleMinus from "../svgs/CircleMinus";
 import Clock from "../svgs/Clock";
 import CircleClose from "../svgs/Failed";
 
+interface BlocksTableItemProps {
+  block: string;
+  age: string;
+  validator: string;
+  txs: string;
+  hash: string;
+  className?: string;
+}
+
+const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
+  block,
+  age,
+  validator,
+  txs,
+  hash,
+  className,
+}) => {
+  return (
+    <tr
+      className={`border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${
+        className ?? ""
+      }`}
+    >
+      <td className="text-blue pr-3">{block}</td>
+      <td className="px-3">
+        <Clock className="text-orange max-md:w-5 max-md:h-5" />
+      </td>
+      <td className="text-gray-500 px-3">{age} secs ago</td>
+      <td className="text-blue px-3">{txs}</td>
+      <td className="text-blue px-3 flex items-center">
+        <CircleLink className="text-green mr-1" />
+        {validator}
+      </td>
+      <td className="text-blue px-3">{hash}</td>
+    </tr>
+  );
+};
+
 interface BlocksTableProps {
   className?: string;
 }
@@ -26,12 +64,7 @@ const BlocksTable: React.FC<BlocksTableProps> = ({ className }) => {
               <th scope="col" className="px-3">
                 Time
               </th>
-              <th scope="col" className="px-3">
-                Extrinsics
-              </th>
-              <th scope="col" className="px-3">
-                Evens
-              </th>
+              <th scope="col" className="px-3"></th>
               <th scope="col" className="px-3">
                 Validator
               </th>
@@ -41,118 +74,48 @@ const BlocksTable: React.FC<BlocksTableProps> = ({ className }) => {
             </tr>
           </thead>
           <tbody className="">
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleLink className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleLink className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleMinus className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleLink className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleMinus className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleLink className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleMinus className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-              <td className="text-blue pr-3">74064712-1</td>
-              <td className="px-3">
-                <Clock className="text-orange max-md:w-5 max-md:h-5" />
-              </td>
-              <td className="text-gray-500 px-3">after 18 secs ago</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3">1</td>
-              <td className="text-blue px-3 flex items-center">
-                <CircleLink className="text-green mr-1" />
-                Cantor
-              </td>
-              <td className="text-blue px-3">0x21af....9b3840</td>
-            </tr>
+            <BlocksTableItem
+              block="35,152"
+              age="1"
+              txs="1"
+              validator="Mazze 1"
+              hash="0xfabb....aa1631"
+            />
+            <BlocksTableItem
+              block="35,152"
+              age="2"
+              txs="1"
+              validator="Mazze 1"
+              hash="0xa43d....ec78af"
+            />
+            <BlocksTableItem
+              block="35,150"
+              age="3"
+              txs="1"
+              validator="Mazze 1"
+              hash="0xf277....1bda5e"
+            />
+            <BlocksTableItem
+              block="35,149"
+              age="4"
+              txs="1"
+              validator="Mazze 1"
+              hash="0x2dec....adfe32"
+            />
+            <BlocksTableItem
+              block="35,148"
+              age="5"
+              txs="1"
+              validator="Mazze 1"
+              hash="0xd160....9a9278"
+            />
+            <BlocksTableItem
+              block="35,147"
+              age="6"
+              txs="1"
+              validator="Mazze 1"
+              hash="0xd43f....c90d3d"
+            />
           </tbody>
         </table>
       </div>
