@@ -16,7 +16,7 @@ const TextLogo: React.FC<TextLogoProps> = ({ dark, className }) => {
       Mazze
       <span
         data-dark={dark}
-        className="text-white data-[dark=true]:text-gray-700"
+        className="text-white data-[dark=true]:text-gray-800"
       >
         Scan
       </span>

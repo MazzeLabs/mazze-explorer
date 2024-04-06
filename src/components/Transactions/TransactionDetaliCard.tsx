@@ -21,7 +21,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         <div className="md:w-1/4 min-w-[25%] leading-[138%] max-md:text-sm">
           Transaction Hash:
         </div>
-        <div className="items-center  text-gray-800 break-words w-full overflow-hidden max-md:mt-1">
+        <div className="items-center  text-gray-900 break-words w-full overflow-hidden max-md:mt-1">
           <span className="break-words leading-[138%] max-md:text-xs">
             0x2e3a296b96013cf0b796fc3e2e4fb52ca487631b1256859fa407b9fa5e70b3fe 
             <CopyClipboard text="hello" className="ml-1 md:ml-2 inline-block" />
@@ -33,7 +33,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
           Status:
         </div>
         <div>
-          <div className="flex items-center text-xs md:text-sm leading-[138%] text-gray-800 w-fit bg-orange rounded-[4px] p-1.5">
+          <div className="flex items-center text-xs md:text-sm leading-[138%] text-gray-900 w-fit bg-orange rounded-[4px] p-1.5">
             <CircleCheckFilled className="mr-1 text-white max-md:w-[13px] max-md:h-[13px]" />{" "}
             Success
           </div>
@@ -48,7 +48,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
             <CircleCheckFilled className="text-green mr-1 md:mr-1.5 max-md:w-[15px] max-md:h-[15px]" />
             19461262
           </div>
-          <div className="border border-gray-300 rounded-[10px] py-0.5 px-2 text-xs md:text-sm leading-[138%] text-gray-800 w-fit">
+          <div className="border border-gray-300 rounded-[10px] py-0.5 px-2 text-xs md:text-sm leading-[138%] text-gray-900 w-fit">
             2001 Block Confirmations
           </div>
         </div>
@@ -57,7 +57,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         <div className="md:w-1/4 min-w-[25%] leading-[138%] max-md:text-sm">
           Timestamp:
         </div>
-        <div className="flex items-center leading-[138%] text-gray-800 max-md:mt-2 max-md:text-sm">
+        <div className="flex items-center leading-[138%] text-gray-900 max-md:mt-2 max-md:text-sm">
           6 hrs ago (Mar-18-2024 11:03:59 AM +UTC)
         </div>
       </div>
@@ -110,7 +110,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         <div className="md:w-1/4 min-w-[25%] leading-[138%] max-md:text-sm">
           Value:
         </div>
-        <div className="flex items-center leading-[138%] text-gray-800 max-md:mt-2 max-md:text-xs">
+        <div className="flex items-center leading-[138%] text-gray-900 max-md:mt-2 max-md:text-xs">
           <Logo className="text-orange w-[12px] md:w-[16px] h-[10px] md:h-[13px] mr-1 md:mr-1.5" />
           1,000 MAZZE&nbsp;<span className="text-gray-500">($100.00)</span>
         </div>
@@ -119,7 +119,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         <div className="md:w-1/4 min-w-[25%] leading-[138%] max-md:text-sm">
           Transaction Fee:
         </div>
-        <div className="leading-[138%] text-gray-800 max-md:mt-2 max-md:text-xs">
+        <div className="leading-[138%] text-gray-900 max-md:mt-2 max-md:text-xs">
           1 MAZZE&nbsp;
           <span className="text-gray-500">($0.01)</span>
         </div>
@@ -128,7 +128,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         <div className="md:w-1/4 min-w-[25%] leading-[138%] max-md:text-sm">
           Gas Price:
         </div>
-        <div className="leading-[138%] text-gray-800 max-md:mt-2 max-md:text-xs">
+        <div className="leading-[138%] text-gray-900 max-md:mt-2 max-md:text-xs">
           1 Gmazzy&nbsp;
           <span className="text-gray-500">(0.000000001 MAZZE)</span>
         </div>

@@ -62,7 +62,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
                 <span className="text-xs leading-[18px]">312512</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="max-md:text-xs leading-[138%] relative before:content-[''] before:absolute before:top-0 before:bottom-0 before:-left-2.5 md:before:-left-3 before:w-[5px] md:before:w-1.5 before:h-[5px] md:before:h-1.5 before:bg-gray-700 before:rounded-full before:my-auto">
+                <span className="max-md:text-xs leading-[138%] relative before:content-[''] before:absolute before:top-0 before:bottom-0 before:-left-2.5 md:before:-left-3 before:w-[5px] md:before:w-1.5 before:h-[5px] md:before:h-1.5 before:bg-gray-800 before:rounded-full before:my-auto">
                   Locked
                 </span>
                 <span className="text-xs leading-[18px]">2251</span>
@@ -95,7 +95,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
               total={140}
               completed={60}
               barClassName="bg-fore-pink"
-              progressClassName="bg-gray-700"
+              progressClassName="bg-gray-800"
             />
           </div>
         </div>

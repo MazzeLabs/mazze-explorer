@@ -12,6 +12,7 @@ import Hambuger from "../svgs/Hambuger";
 import MobileNav from "./MobileNav";
 import { useState } from "react";
 import NetworkSwitch from "./NetworkSwitch";
+import DarkModeSwitch from "../DarkModeSwitch";
 
 const Header = () => {
   const pathname = usePathname();
@@ -63,10 +64,11 @@ const Header = () => {
                 Address
               </Link>
             </div>
+            <DarkModeSwitch className="mr-5" />
             <NetworkSwitch />
           </div>
           <button
-            className="border border-gray-700 rounded-[3px] py-1 px-1.5 order-3 md:hidden"
+            className="border border-gray-800 rounded-[3px] py-1 px-1.5 order-3 md:hidden"
             onClick={() => setMobileNavOpen(true)}
           >
             <Hambuger className="text-white" />

@@ -20,7 +20,7 @@ const NetworkSwitch: React.FC<NetworkSwitchProps> = ({ className }) => {
         <Menu.Button
           className={`p-1.5 md:p-2.5 ${
             home ? "" : "border"
-          } border-gray-700 bg-dark-blue text-white rounded-[3px] md:rounded-[5px]`}
+          } border-gray-800 bg-dark-blue text-white rounded-[3px] md:rounded-[5px]`}
         >
           <Logo className="max-md:w-6 max-md:h-5" />
         </Menu.Button>
@@ -55,7 +55,7 @@ const NetworkSwitch: React.FC<NetworkSwitchProps> = ({ className }) => {
           </div>
           <div className="pl-5 pb-3 pr-3.5 pt-2.5">
             <Menu.Item>
-              <button className="text-orange leading-[138%] py-1 px-3 border border-orange hover:border-gray-700 transition-all rounded-[5px] whitespace-nowrap">
+              <button className="text-orange leading-[138%] py-1 px-3 border border-orange hover:border-gray-800 transition-all rounded-[5px] whitespace-nowrap">
                 Join MazzeScan
               </button>
             </Menu.Item>

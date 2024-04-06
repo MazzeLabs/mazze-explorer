@@ -18,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={oxygen.className}>
+      <body
+        className={`bg-gray-200 dark:bg-dark-blue-100 text-gray-800 dark:text-gray-350 ${oxygen.className}`}
+      >
         <Header />
         {children}
         <Footer />

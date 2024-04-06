@@ -7,7 +7,7 @@ interface NativeStatisticsProps {
 const NativeStatistics: React.FC<NativeStatisticsProps> = ({ className }) => {
   return (
     <div
-      className={`flex max-md:flex-col md:items-center border border-gray-600 bg-dark-blue/50 rounded-[10px] py-2 px-3 text-lg md:divide-x-[1px] md:divide-gray-600 cursor-pointer ${
+      className={`flex max-md:flex-col md:items-center border border-gray-700 bg-dark-blue/50 rounded-[10px] py-2 px-3 text-lg md:divide-x-[1px] md:divide-gray-700 cursor-pointer ${
         className ?? ""
       }`}
     >

@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -29,14 +30,18 @@ const config: Config = {
         "fore-pink": "#FFF2F5",
         slate: "#EFF1F9",
         "dark-blue": "#050B2D",
+        "dark-blue-100": "#080D28",
+        "dark-blue-200": "#0D122D",
         "gray-100": "#FFFFFF",
         "gray-200": "#F4F4F4",
         "gray-300": "#E2E2E2",
+        "gray-350": "#D1D3D8",
         "gray-400": "#C0C0C0",
         "gray-500": "#8A8A8A",
-        "gray-600": "#393939",
-        "gray-700": "#313131",
-        "gray-800": "#1E1E1E",
+        "gray-600": "#6A6C73",
+        "gray-700": "#393939",
+        "gray-800": "#313131",
+        "gray-900": "#1E1E1E",
       },
     },
   },
