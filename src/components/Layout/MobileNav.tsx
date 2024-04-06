@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Close from "../svgs/Close";
 import NativeStatistics from "./NativeStatistics";
+import DarkModeSwitch from "../DarkModeSwitch";
 
 interface MobileNavProps {
   open: boolean;
@@ -47,7 +48,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen, className }) => {
         >
           Address
         </Link>
-        <NativeStatistics className="mt-9" />
+        <DarkModeSwitch className="mt-10" />
+        <NativeStatistics className="mt-[30px]" />
       </div>
     </div>
   );

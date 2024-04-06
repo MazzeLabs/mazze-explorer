@@ -4,7 +4,7 @@ import Link from "next/link";
 const TransferTab = () => {
   return (
     <div>
-      <TransfersTable className="py-4" />
+      <TransfersTable className="py-4 !border-none" />
       <Link
         href={"/"}
         className="leading-[138%] text-orange border border-orange py-1 md:py-1.5 px-2.5 md:px-3 rounded-[5px] hover:border-gray-800 transition-all max-md:text-sm"

@@ -16,7 +16,7 @@ const AccountDataCard: React.FC<AccountDataCardProps> = ({ className }) => {
 
   return (
     <div
-      className={`bg-white rounded-[10px] pt-8 px-5 pb-5 ${className ?? ""}`}
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] pt-8 px-5 pb-5 ${className ?? ""}`}
     >
       <Tabs
         items={["Transactions (29)", "Transfers (55)", "Balance History"]}

@@ -17,7 +17,7 @@ const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
 }) => {
   return (
     <div
-      className={`flex justify-between items-start border-b border-gray-300 pt-4 md:pt-[25px] pb-4 md:pb-5 ${
+      className={`flex justify-between items-start border-b border-gray-300 dark:border-gray-600 pt-4 md:pt-[25px] pb-4 md:pb-5 ${
         className ?? ""
       }`}
     >
@@ -31,7 +31,7 @@ const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
           <CircleCheck className="text-green ml-3" />
         </div>
         <div className="flex items-center mt-1 md:mt-4 space-x-2">
-          <span>includes</span>
+          <span className="text-gray-500">includes</span>
           <span className="text-blue max-md:text-sm">{tx} Transaction</span>
         </div>
       </div>
@@ -49,14 +49,18 @@ interface LatestBlocksProps {
 
 const LatestBlocks: React.FC<LatestBlocksProps> = ({ className }) => {
   return (
-    <div className={`bg-white rounded-[10px] ${className ?? ""}`}>
-      <div className="flex justify-between items-center py-2 md:py-4 px-4 md:px-8 border-b border-gray-300">
+    <div
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${
+        className ?? ""
+      }`}
+    >
+      <div className="flex justify-between items-center py-2 md:py-4 px-4 md:px-8 border-b border-gray-300 dark:border-gray-600">
         <span className="md:text-lg font-bold whitespace-nowrap leading-[107%]">
           Latest Blocks
         </span>
         <Link
           href={"/blocks"}
-          className="py-2 px-2.5 border border-gray-300 hover:border-orange transition-all rounded-[5px] leading-[138%]"
+          className="py-2 px-2.5 border border-gray-300 dark:border-gray-600 hover:border-orange dark:hover:border-orange transition-all rounded-[5px] leading-[138%]"
         >
           View All
         </Link>

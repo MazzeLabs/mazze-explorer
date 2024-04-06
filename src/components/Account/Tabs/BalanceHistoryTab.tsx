@@ -1,5 +1,6 @@
 "use client";
 
+import useDark from "@/hooks/useDark";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -23,15 +24,14 @@ ChartJS.register(
   Tooltip
 );
 
-export const options = {
+export const options = (dark: boolean) => ({
   responsive: true,
+  interaction: {
+    intersect: false,
+  },
   plugins: {
     tooltip: {
       usePointStyle: true,
-      labelPointStyle: {
-        pointStyle: "circle",
-        rotation: 0,
-      },
     },
   },
   scales: {
@@ -51,7 +51,7 @@ export const options = {
       },
       grid: {
         display: true,
-        color: "#E2E7E7",
+        color: dark ? "#2C3049" : "#E2E7E7",
       },
       border: { display: false },
     },
@@ -60,10 +60,14 @@ export const options = {
     point: {
       pointStyle: "circle",
       radius: 0,
-      hitRadius: 6,
+      hitRadius: 12,
+      hoverRadius: 8,
+      hoverBackgroundColor: "#FD9109",
+      hoverBorderColor: "white",
+      hoverBorderWidth: 4,
     },
   },
-};
+});
 
 const labels = Array(30)
   .fill(0)
@@ -95,6 +99,7 @@ function createGradient(ctx: CanvasRenderingContext2D, area: ChartArea) {
 }
 
 const BalanceHistoryTab = () => {
+  const { dark } = useDark();
   const chartRef = useRef<ChartJS>(null);
   const [chartData, setChartData] = useState<ChartData<"bar">>({
     datasets: [],
@@ -125,50 +130,7 @@ const BalanceHistoryTab = () => {
         type="line"
         height={160}
         data={chartData}
-        options={{
-          responsive: true,
-          interaction: {
-            intersect: false,
-          },
-          plugins: {
-            tooltip: {
-              usePointStyle: true,
-            },
-          },
-          scales: {
-            x: {
-              grid: {
-                display: false,
-              },
-              ticks: {
-                display: true,
-                maxTicksLimit: 6,
-              },
-            },
-            y: {
-              ticks: {
-                count: 4,
-                color: "#737B8B",
-              },
-              grid: {
-                display: true,
-                color: "#E2E7E7",
-              },
-              border: { display: false },
-            },
-          },
-          elements: {
-            point: {
-              pointStyle: "circle",
-              radius: 0,
-              hitRadius: 12,
-              hoverRadius: 8,
-              hoverBackgroundColor: "#FD9109",
-              hoverBorderColor: "white",
-              hoverBorderWidth: 4,
-            },
-          },
-        }}
+        options={options(dark)}
         // className="!h-[400px]"
       />
     </div>

@@ -10,11 +10,15 @@ interface TransfersTableProps {
 
 const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
   return (
-    <div className={`bg-white rounded-[10px] ${className ?? ""}`}>
+    <div
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${
+        className ?? ""
+      }`}
+    >
       <div className="overflow-x-auto px-4 md:px-5 pb-0.5">
         <table className="min-w-full">
           <thead className="relative rounded-[10px]">
-            <div className="absolute top-0 -left-4 md:-left-5 -right-4 md:-right-5 bottom-0 bg-slate z-[0] rounded-[10px]" />
+            <div className="absolute top-0 -left-4 md:-left-5 -right-4 md:-right-5 bottom-0 bg-slate dark:bg-dark-blue-100 z-[0] rounded-[10px]" />
             <tr className="md:*:text-lg *:leading-[138%] *:py-2.5 *:font-normal *:text-left *:whitespace-nowrap z-10 relative">
               <th scope="col" className="pr-3">
                 Txs hash
@@ -41,7 +45,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
             </tr>
           </thead>
           <tbody className="">
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+            <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
               <td className="text-blue pr-3">0x073f8aba70…</td>
               <td className="text-blue px-3">35,152</td>
               <td className="text-gray-500 px-3">1 secs ago</td>
@@ -55,7 +59,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
                 <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" />
               </td>
             </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+            <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
               <td className="text-blue pr-3">0xf8e2cde5a1…</td>
               <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">2 secs ago</td>
@@ -69,7 +73,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
                 <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" />
               </td>
             </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+            <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
               <td className="text-blue pr-3">0xf8e2cde5a1…</td>
               <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">3 secs ago</td>
@@ -83,7 +87,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
                 <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" />
               </td>
             </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+            <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
               <td className="text-blue pr-3">0xf8e2cde5a1…</td>
               <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>
@@ -97,7 +101,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
                 <CircleClose className="text-red max-md:w-[18px] max-md:h-[18px]" />
               </td>
             </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+            <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
               <td className="text-blue pr-3">0xf8e2cde5a1…</td>
               <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>
@@ -111,7 +115,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
                 <CircleClose className="text-red max-md:w-[18px] max-md:h-[18px]" />
               </td>
             </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+            <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
               <td className="text-blue pr-3">0xf8e2cde5a1…</td>
               <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>
@@ -125,7 +129,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
                 <CircleClose className="text-red max-md:w-[18px] max-md:h-[18px]" />
               </td>
             </tr>
-            <tr className="border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+            <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
               <td className="text-blue pr-3">0xf8e2cde5a1…</td>
               <td className="text-blue px-3">35,151</td>
               <td className="text-gray-500 px-3">1 min ago</td>

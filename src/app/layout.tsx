@@ -3,6 +3,7 @@ import { Oxygen } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
+import { DarkProvider } from "@/hooks/useDark";
 
 const oxygen = Oxygen({ weight: ["300", "400", "700"], subsets: ["latin"] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
       <body
         className={`bg-gray-200 dark:bg-dark-blue-100 text-gray-800 dark:text-gray-350 ${oxygen.className}`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <DarkProvider>
+          <Header />
+          {children}
+          <Footer />
+        </DarkProvider>
       </body>
     </html>
   );

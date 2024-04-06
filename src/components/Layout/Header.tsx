@@ -64,7 +64,7 @@ const Header = () => {
                 Address
               </Link>
             </div>
-            <DarkModeSwitch className="mr-5" />
+            <DarkModeSwitch className="mr-5 max-md:hidden" />
             <NetworkSwitch />
           </div>
           <button

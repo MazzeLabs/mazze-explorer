@@ -1,13 +1,16 @@
 import { useState } from "react";
 import Moon from "./svgs/Moon";
 import Sun from "./svgs/Sun";
+import useDark from "@/hooks/useDark";
 
 interface DarkModeSwitchProps {
   className?: string;
 }
 
 const DarkModeSwitch: React.FC<DarkModeSwitchProps> = ({ className }) => {
+  const { setDark } = useDark();
   const onSwitchMode = (dark: boolean) => {
+    setDark(dark);
     if (dark) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
   };

@@ -13,7 +13,7 @@ const Tabs: React.FC<TabsProps> = ({
 }) => {
   return (
     <div
-      className={`overflow-x-auto [&::-webkit-scrollbar]:!hidden border-b border-gray-300 ${
+      className={`overflow-x-auto [&::-webkit-scrollbar]:!hidden border-b border-gray-300 dark:border-none ${
         className ?? ""
       }`}
     >

@@ -14,7 +14,7 @@ const ScrollTop: React.FC<ScrollTopProps> = ({ className }) => {
   };
   return (
     <button
-      className={`flex items-center justify-center bg-white w-10 h-10 rounded-full hover:scale-105 transition-all ${
+      className={`flex items-center justify-center bg-white dark:bg-transparent dark:border dark:border-gray-600 w-10 h-10 rounded-full hover:scale-105 transition-all ${
         className ?? ""
       }`}
       onClick={onScrollTop}

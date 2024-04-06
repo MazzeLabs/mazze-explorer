@@ -11,6 +11,7 @@ import {
 import { Bar } from "react-chartjs-2";
 
 import SwitchSelector from "../SwitchSelector";
+import useDark from "@/hooks/useDark";
 
 interface TransactionHistoryChartProps {
   className?: string;
@@ -52,7 +53,7 @@ const labels = Array(30)
   .fill(0)
   .map((_, i) => i);
 
-export const data = {
+export const data = (dark: boolean) => ({
   labels,
   datasets: [
     {
@@ -60,7 +61,7 @@ export const data = {
         .fill(0)
         .map(() => Math.random() * 50),
       backgroundColor: "#FFE5C5",
-      hoverBorderColor: "#313131",
+      hoverBorderColor: dark ? "#FFFFFF" : "#313131",
       borderColor: "#FFE5C5",
       borderWidth: 1,
       stack: "Stack 0",
@@ -70,24 +71,25 @@ export const data = {
       data: Array(30)
         .fill(0)
         .map(() => Math.random() * -50),
-      backgroundColor: "#EFF1F9",
-      hoverBorderColor: "#313131",
-      borderColor: "#EFF1F9",
+      backgroundColor: dark ? "#2E386D" : "#EFF1F9",
+      hoverBorderColor: dark ? "#FFFFFF" : "#313131",
+      borderColor: dark ? "#2E386D" : "#EFF1F9",
       borderWidth: 1,
       stack: "Stack 0",
       borderRadius: 8,
     },
   ],
-};
+});
 
 const TransferHistoryChart: React.FC<TransactionHistoryChartProps> = ({
   className,
 }) => {
   const [period, setPeriod] = useState(0);
+  const { dark } = useDark();
 
   return (
     <div
-      className={`bg-white rounded-[10px] px-1.5 md:px-8 pt-1.5 md:pt-3 pb-[18px] md:pb-8 lg:pb-[52px] ${
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] px-1.5 md:px-8 pt-1.5 md:pt-3 pb-[18px] md:pb-8 lg:pb-[52px] ${
         className ?? ""
       }`}
     >
@@ -97,7 +99,7 @@ const TransferHistoryChart: React.FC<TransactionHistoryChartProps> = ({
         setSelected={setPeriod}
       />
       <div className="mt-5">
-        <Bar options={options} data={data} height={60} />
+        <Bar options={options} data={data(dark)} height={60} />
       </div>
     </div>
   );

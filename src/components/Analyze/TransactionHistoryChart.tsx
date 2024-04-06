@@ -11,6 +11,7 @@ import {
 import { Line } from "react-chartjs-2";
 import SwitchSelector from "../SwitchSelector";
 import { useState } from "react";
+import useDark from "@/hooks/useDark";
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +25,7 @@ interface TransactionHistoryChartProps {
   className?: string;
 }
 
-export const options = {
+export const options = (dark: boolean) => ({
   responsive: true,
   scales: {
     x: {
@@ -32,7 +33,7 @@ export const options = {
         display: false,
       },
       ticks: {
-        display: false,
+        display: true,
       },
     },
     y: {
@@ -42,7 +43,7 @@ export const options = {
       },
       grid: {
         display: true,
-        color: "#E2E7E7",
+        color: dark ? "#2C3049" : "#E2E7E7",
       },
       border: { display: false },
     },
@@ -54,9 +55,9 @@ export const options = {
       hitRadius: 6,
     },
   },
-};
+});
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = ["01", "02", "03", "04", "05", "06", "07"];
 
 export const data = {
   labels,
@@ -72,10 +73,11 @@ const TransactionHistoryChart: React.FC<TransactionHistoryChartProps> = ({
   className,
 }) => {
   const [period, setPeriod] = useState(0);
+  const { dark } = useDark();
 
   return (
     <div
-      className={`bg-white rounded-[10px] pt-[18px] pl-3 pr-[25px] max-md:pb-8 ${
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] pt-[18px] pl-3 pr-[25px] max-md:pb-8 ${
         className ?? ""
       }`}
     >
@@ -89,7 +91,7 @@ const TransactionHistoryChart: React.FC<TransactionHistoryChartProps> = ({
           setSelected={setPeriod}
         />
       </div>
-      <Line height={"100px"} options={options} data={data} />
+      <Line height={"100px"} options={options(dark)} data={data} />
     </div>
   );
 };

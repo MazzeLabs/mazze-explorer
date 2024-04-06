@@ -5,6 +5,7 @@ import { Doughnut } from "react-chartjs-2";
 
 import Logo from "../svgs/Logo";
 import LinearProgressBar from "../LinearProgressBar";
+import useDark from "@/hooks/useDark";
 
 ChartJS.register(ArcElement, Tooltip);
 
@@ -12,27 +13,29 @@ interface AccountBalanceCardProps {
   className?: string;
 }
 
-export const data = {
+export const data = (dark: boolean) => ({
   labels: ["Transfer", "Staking", "Other"],
   datasets: [
     {
       label: "# of Votes",
       data: [50, 30, 20],
-      backgroundColor: ["#FD9109", "#313131", "#95A4FC"],
+      backgroundColor: ["#FD9109", dark ? "#D1D3D8" : "#313131", "#95A4FC"],
+      borderColor: dark ? "#0D122D" : "#FFF",
       rotation: -45,
       hoverOffset: 5,
     },
   ],
-};
+});
 
 const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
   className,
 }) => {
+  const { dark } = useDark();
   return (
     <div className={className ?? ""}>
       <h2 className="md:text-lg leading-[138%]">Balance</h2>
-      <div className="mt-4 bg-white rounded-[10px] py-[25px] px-4 md:px-[30px]">
-        <div className="flex justify-between items-center pb-[26px] md:pb-5 border-b border-gray-300">
+      <div className="mt-4 bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] py-[25px] px-4 md:px-[30px]">
+        <div className="flex justify-between items-center pb-[26px] md:pb-5 border-b dark:border-none border-gray-300">
           <div className="flex items-center">
             <Logo className="w-6 md:w-[27px] h-[19px] md:h-[22px] text-orange" />
             <span className="ml-2 md:ml-3 md:text-lg leading-[107%]">
@@ -50,7 +53,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
           <div className="flex items-center justify-between w-full">
             <div>
               <Doughnut
-                data={data}
+                data={data(dark)}
                 className="w-[120px] md:w-[160px] xl:w-[200px]"
               />
             </div>
@@ -62,7 +65,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
                 <span className="text-xs leading-[18px]">312512</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="max-md:text-xs leading-[138%] relative before:content-[''] before:absolute before:top-0 before:bottom-0 before:-left-2.5 md:before:-left-3 before:w-[5px] md:before:w-1.5 before:h-[5px] md:before:h-1.5 before:bg-gray-800 before:rounded-full before:my-auto">
+                <span className="max-md:text-xs leading-[138%] relative before:content-[''] before:absolute before:top-0 before:bottom-0 before:-left-2.5 md:before:-left-3 before:w-[5px] md:before:w-1.5 before:h-[5px] md:before:h-1.5 before:bg-gray-800 dark:before:bg-gray-350 before:rounded-full before:my-auto">
                   Locked
                 </span>
                 <span className="text-xs leading-[18px]">2251</span>
@@ -95,7 +98,7 @@ const AccountBalanceCard: React.FC<AccountBalanceCardProps> = ({
               total={140}
               completed={60}
               barClassName="bg-fore-pink"
-              progressClassName="bg-gray-800"
+              progressClassName="bg-gray-800 dark:bg-gray-350"
             />
           </div>
         </div>

@@ -24,7 +24,7 @@ const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
 }) => {
   return (
     <tr
-      className={`border-b *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${
+      className={`border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${
         className ?? ""
       }`}
     >
@@ -49,11 +49,15 @@ interface BlocksTableProps {
 
 const BlocksTable: React.FC<BlocksTableProps> = ({ className }) => {
   return (
-    <div className={`bg-white p-4 md:p-5 rounded-[10px] ${className ?? ""}`}>
+    <div
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 p-4 md:p-5 rounded-[10px] ${
+        className ?? ""
+      }`}
+    >
       <div className="overflow-x-auto px-4 md:px-5 pb-0.5">
         <table className="min-w-full">
           <thead className="relative rounded-[10px]">
-            <div className="absolute top-0 -left-4 md:-left-5 -right-4 md:-right-5 bottom-0 bg-slate z-[0] rounded-[10px]" />
+            <div className="absolute top-0 -left-4 md:-left-5 -right-4 md:-right-5 bottom-0 bg-slate dark:bg-dark-blue-100 z-[0] rounded-[10px]" />
             <tr className="md:*:text-lg *:leading-[138%] *:py-2 md:*:py-2.5 *:font-normal *:text-left *:whitespace-nowrap z-10 relative">
               <th scope="col" className="pr-3">
                 Block

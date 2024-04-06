@@ -13,7 +13,7 @@ const SwitchSelector: React.FC<SwitchSelectorProps> = ({
 }) => {
   return (
     <div
-      className={`flex space-x-1 py-0.5 px-0.5 md:px-1 border border-gray-300 rounded-[5px] w-fit ${
+      className={`flex space-x-1 py-0.5 px-0.5 md:px-1 border border-gray-300 dark:border-gray-600 rounded-[5px] w-fit ${
         className ?? ""
       }`}
     >
