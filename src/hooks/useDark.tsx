@@ -21,7 +21,7 @@ export default function useDark() {
 export const DarkProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   return (
     <DarkContext.Provider value={{ dark, setDark }}>
