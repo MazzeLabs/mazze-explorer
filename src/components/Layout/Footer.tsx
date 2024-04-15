@@ -16,7 +16,7 @@ const Footer = () => {
         </span>
         <div className="flex items-center space-x-3 max-md:mt-9">
           <Link
-            href={"/"}
+            href={"https://github.com/MazzeLabs"}
             target="_blank"
             rel="noreferrer"
             className="border rounded-sm border-transparent hover:border-gray-800 transition-all p-0.5"
@@ -24,7 +24,7 @@ const Footer = () => {
             <Github />
           </Link>
           <Link
-            href={"/"}
+            href={"https://t.me/MazzeLabs"}
             target="_blank"
             rel="noreferrer"
             className="border rounded-sm border-transparent hover:border-gray-800 transition-all p-0.5"
@@ -32,7 +32,7 @@ const Footer = () => {
             <Telegram />
           </Link>
           <Link
-            href={"/"}
+            href={"https://x.com/MazzeLabs"}
             target="_blank"
             rel="noreferrer"
             className="border rounded-sm border-transparent hover:border-gray-800 transition-all p-0.5"
