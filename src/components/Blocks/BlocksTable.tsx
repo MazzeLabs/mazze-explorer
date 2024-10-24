@@ -79,7 +79,7 @@ const BlocksTable: React.FC<BlocksTableProps> = ({ className }) => {
           </thead>
           <tbody className="">
             <BlocksTableItem
-              block="35,152"
+              block="35,1522"
               age="1"
               txs="1"
               validator="Mazze 1"

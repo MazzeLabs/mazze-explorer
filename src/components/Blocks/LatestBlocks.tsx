@@ -5,12 +5,15 @@ import Clock from "../svgs/Clock";
 import CircleCheck from "../svgs/CircleCheck";
 import { useEffect, useState } from "react";
 import { getLatestDagBlocks } from "@/services/api";
+import { useBlockchain } from "@/contexts/BlockchainContext";
+import { formatTimeAgo } from "@/utils/helpers";
 
 interface LatestBlockItemProps {
   block: string;
   tx: string;
-  age: string;
+  age: number;
   className?: string;
+  type: "dag" | "evm";
 }
 
 const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
@@ -18,6 +21,7 @@ const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
   tx,
   age,
   className,
+  type,
 }) => {
   return (
     <div
@@ -26,20 +30,23 @@ const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
     >
       <div>
         <div className="flex items-center">
-          <span className="text-sm md:text-lg">Block#</span>
-          <span className="text-sm md:text-lg font-bold ml-3.5">{block}</span>
+          <span className="text-sm md:text-lg">Block</span>
+          <span className="text-sm md:text-lg font-bold ml-3.5">#{block}</span>
+          {/* TODO: Fix the badge background color */}
+          <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
+
         </div>
         <div className="flex items-center mt-1 md:hidden">
-          <span className="text-gray-500 max-md:text-sm">{age} secs ago</span>
+          <span className="text-gray-500 max-md:text-sm">{formatTimeAgo(age)}</span>
           <CircleCheck className="text-green ml-3" />
         </div>
         <div className="flex items-center mt-1 md:mt-4 space-x-2">
           <span className="text-gray-500">includes</span>
-          <span className="text-blue max-md:text-sm">{tx} Transaction</span>
+          <span className="text-blue max-md:text-sm">{tx} Transaction{tx !== '1' ? 's' : ''}</span>
         </div>
       </div>
       <div className="flex items-center max-md:hidden">
-        <span className="text-gray-500 max-md:text-sm">{age} secs ago</span>
+        <span className="text-gray-500 max-md:text-sm">{formatTimeAgo(age)}</span>
         <CircleCheck className="text-green ml-3" />
       </div>
     </div>
@@ -51,14 +58,8 @@ interface LatestBlocksProps {
 }
 
 const LatestBlocks: React.FC<LatestBlocksProps> = ({ className }) => {
-  const [data, setData] = useState<any[]>([]);
+  const { commonBlocks } = useBlockchain();
 
-  useEffect(() => {
-    getLatestDagBlocks().then((res) => {
-      setData(res);
-      console.log('fetched latest dag blocks', res);
-    });
-  }, []);
   return (
     <div
       className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${className ?? ""
@@ -77,12 +78,15 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({ className }) => {
       </div>
       <div className="pr-0.5 md:pr-1">
         <div className="max-h-[500px] md:max-h-[600px] overflow-y-auto pl-5 md:pl-8 pr-2 md:pr-6 pb-5 md:pb-8">
-          <LatestBlockItem block="35,152" tx="1" age="1" />
-          <LatestBlockItem block="35,151" tx="2" age="2" />
-          <LatestBlockItem block="35,150" tx="0" age="3" />
-          <LatestBlockItem block="35,149" tx="5" age="4" />
-          <LatestBlockItem block="35,148" tx="1" age="5" />
-          <LatestBlockItem block="35,147" tx="1" age="6" />
+          {commonBlocks.map((block) => (
+            <LatestBlockItem
+              key={block.id}
+              block={block.blockNumber?.toString() ?? 'N/A'}
+              tx={block.transaction_count?.toString() ?? 'N/A'}
+              age={block.timestamp ?? 0}
+              type={block.type}
+            />
+          ))}
         </div>
       </div>
     </div>

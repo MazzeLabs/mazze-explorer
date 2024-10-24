@@ -5,14 +5,18 @@ import SwitchSelector from "../SwitchSelector";
 import { useState } from "react";
 import CircleCheck from "../svgs/CircleCheck";
 import Clock from "../svgs/Clock";
+import { useBlockchain } from "@/contexts/BlockchainContext";
+import { Mazzy } from "@mazze-labs/mazze-js-sdk";
+import { formatTimeAgo } from "@/utils/helpers";
 
 interface LatestTransactionItemProps {
   block: string;
   from: string;
   to: string;
-  age: string;
+  age: number;
   amount: string;
   className?: string;
+  type: "dag" | "evm";
 }
 
 const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
@@ -22,24 +26,29 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
   age,
   amount,
   className,
+  type,
 }) => {
+  const [fromFormatted, toFormatted] = type === "dag" ? [from.split(':')[2], to.split(':')[2]] : [from, to];
+  const amountFormatted = new Mazzy(amount).toMAZZE();
+
   return (
     <div
-      className={`flex justify-between items-start border-b border-gray-300 dark:border-gray-600 pt-4 md:pt-[25px] pb-4 md:pb-5 ${
-        className ?? ""
-      }`}
+      className={`flex justify-between items-start border-b border-gray-300 dark:border-gray-600 pt-4 md:pt-[25px] pb-4 md:pb-5 ${className ?? ""
+        }`}
     >
       <div>
         <div className="flex items-center md:hidden">
           <span className="text-green text-sm md:text-lg font-bold whitespace-nowrap">
-            {amount} Mazze
+            {amountFormatted} Mazze
           </span>
         </div>
         <div className="flex items-center max-md:mt-1">
-          <span className="text-sm md:text-lg">Block#</span>
+          {/* TODO: Fix the badge background color */}
+          <span className="text-sm md:text-lg">Transaction</span>
           <span className="text-sm md:text-lg font-bold text-blue ml-3.5">
-            {block}
+            0x{block.substring(0, 6)}...{block.substring(block.length - 6)}
           </span>
+          <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
         </div>
         <div className="flex items-center mt-1 md:hidden">
           <span className="text-gray-500 max-md:text-sm">{age} secs ago</span>
@@ -47,19 +56,19 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
         </div>
         <div className="flex flex-wrap mt-1 md:mt-4 max-md:text-xs">
           <span className="text-gray-500">From</span> &nbsp;&nbsp;
-          <span className="text-blue">{from}</span> &nbsp;&nbsp;
+          <span className="text-blue">{fromFormatted?.substring(0, 6)}...{fromFormatted?.substring(fromFormatted?.length - 6)}</span> &nbsp;&nbsp;
           <span className="text-gray-500">To</span> &nbsp;&nbsp;
-          <span className="text-blue">{to}</span>
+          <span className="text-blue">{toFormatted?.substring(0, 6)}...{toFormatted?.substring(toFormatted?.length - 6)}</span>
         </div>
       </div>
       <div className="max-md:hidden">
         <div className="flex items-center">
           <span className="text-green text-lg font-bold whitespace-nowrap">
-            {amount} Mazze
+            {amountFormatted} Mazze
           </span>
           <CircleCheck className="ml-2.5 text-green" />
         </div>
-        <div className="text-gray-500 text-right mt-3.5">{age} secs ago</div>
+        <div className="text-gray-500 text-right mt-3.5">{formatTimeAgo(age)}</div>
       </div>
     </div>
   );
@@ -74,11 +83,12 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
 }) => {
   const [filter, setFilter] = useState(0);
 
+  const { commonTransactions } = useBlockchain();
+
   return (
     <div
-      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${
-        className ?? ""
-      }`}
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${className ?? ""
+        }`}
     >
       <div className="flex justify-between items-center py-2.5 md:py-4 px-4 md:px-8 border-b border-gray-300 dark:border-gray-600">
         <span className="md:text-lg font-bold whitespace-nowrap leading-[107%]">
@@ -101,48 +111,17 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
       </div>
       <div className="pr-0.5 md:pr-1">
         <div className="max-h-[500px] md:max-h-[600px] overflow-y-auto pl-5 md:pl-8 pr-2 md:pr-6 pb-5 md:pb-8">
-          <LatestTransactionItem
-            block="35,152"
-            from="0x51af....2b6740"
-            to="0x51af....2b6740"
-            amount="1,000"
-            age="1"
-          />
-          <LatestTransactionItem
-            block="35,151"
-            from="0x51af....2b6740"
-            to="0x51af....2b6740"
-            amount="100"
-            age="2"
-          />
-          <LatestTransactionItem
-            block="35,150"
-            from="0x51af....2b6740"
-            to="0x51af....2b6740"
-            amount="300"
-            age="3"
-          />
-          <LatestTransactionItem
-            block="35,149"
-            from="0x51af....2b6740"
-            to="0x51af....2b6740"
-            amount="1,000"
-            age="4"
-          />
-          <LatestTransactionItem
-            block="35,148"
-            from="0x51af....2b6740"
-            to="0x51af....2b6740"
-            amount="1,000"
-            age="5"
-          />
-          <LatestTransactionItem
-            block="35,147"
-            from="0x51af....2b6740"
-            to="0x51af....2b6740"
-            amount="1,000"
-            age="6"
-          />
+          {commonTransactions.map((transaction, index) => (
+            <LatestTransactionItem
+              key={index}
+              block={transaction.hash ?? ""}
+              from={transaction.from ?? ""}
+              to={transaction.to ?? ""}
+              amount={transaction.value?.toString() ?? "0"}
+              age={transaction.timestamp ?? 0}
+              type={transaction.type}
+            />
+          ))}
         </div>
       </div>
     </div>

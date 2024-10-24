@@ -58,18 +58,74 @@ export interface DAGBlock {
     transaction_count?: number; // i64 in Rust
 }
 
+export interface EVMTransaction {
+    id?: number;
+    hash?: string;
+    block_hash?: string;
+    block_number?: string;
+    from_address?: string;
+    to_address?: string;
+    value?: string;
+    gas?: string;
+    gas_price?: string;
+    input?: string;
+    nonce?: string;
+    r?: string;
+    s?: string;
+    v?: string;
+    transaction_index?: number;
+    chain_id?: string;
+    creates?: string;
+    public_key?: string;
+    raw?: string;
+    standard_v?: string;
+    status?: string;
+    storage_limit?: string;
+    epoch_height?: string;
+    transaction_type?: string;
+    contract_created?: string;
+    max_priority_fee_per_gas?: string;
+    max_fee_per_gas?: string;
+    y_parity?: string;
+    data?: string;
+}
+
+export interface DAGTransaction {
+    id?: number;
+    hash?: string;
+    block_hash?: string;
+    from_address?: string;
+    to_address?: string;
+    value?: string; // Assuming BigDecimal can be represented as a string
+    chain_id?: string;
+    contract_created?: string;
+    data?: string;
+    epoch_height?: string;
+    gas?: string; // Assuming BigDecimal can be represented as a string
+    gas_price?: string; // Assuming BigDecimal can be represented as a string
+    nonce?: string; // Assuming BigDecimal can be represented as a string
+    r?: string;
+    s?: string;
+    status?: string;
+    storage_limit?: string; // Assuming BigDecimal can be represented as a string
+    transaction_index?: number;
+    type_?: number;
+    v?: number;
+    timestamp?: string;
+}
+
 export const getLatestDagBlocks = async (): Promise<DAGBlock[]> => {
     const response = await api.get('/dag/blocks');
     if (response.status !== 200) {
         console.error('Failed to fetch latest dag blocks');
         return [];
     }
-    return response.data;
+    return response.data.data;
 };
 
-export const getLatestDagTransactions = async () => {
+export const getLatestDagTransactions = async (): Promise<DAGTransaction[]> => {
     const response = await api.get('/dag/transactions');
-    return response.data;
+    return response.data.data;
 };
 
 export const getLatestEvmBlocks = async (): Promise<EVMBlock[]> => {
@@ -78,12 +134,12 @@ export const getLatestEvmBlocks = async (): Promise<EVMBlock[]> => {
         console.error('Failed to fetch latest evm blocks');
         return [];
     }
-    return response.data;
+    return response.data.data;
 };
 
-export const getLatestEvmTransactions = async () => {
+export const getLatestEvmTransactions = async (): Promise<EVMTransaction[]> => {
     const response = await api.get('/evm/transactions');
-    return response.data;
+    return response.data.data;
 };
 
 export default api;
