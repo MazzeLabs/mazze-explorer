@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
 import { DarkProvider } from "@/hooks/useDark";
+import { BlockchainProvider } from "@/contexts/BlockchainContext";
 
 const oxygen = Oxygen({ weight: ["300", "400", "700"], subsets: ["latin"] });
 
@@ -22,11 +23,13 @@ export default function RootLayout({
       <body
         className={`bg-gray-200 dark:bg-dark-blue-100 text-gray-800 dark:text-gray-350 ${oxygen.className}`}
       >
-        <DarkProvider>
-          <Header />
-          {children}
-          <Footer />
-        </DarkProvider>
+        <BlockchainProvider>
+          <DarkProvider>
+            <Header />
+            {children}
+            <Footer />
+          </DarkProvider>
+        </BlockchainProvider>
       </body>
     </html>
   );

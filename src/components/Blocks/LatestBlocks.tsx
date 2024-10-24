@@ -1,6 +1,10 @@
+'use client';
+
 import Link from "next/link";
 import Clock from "../svgs/Clock";
 import CircleCheck from "../svgs/CircleCheck";
+import { useEffect, useState } from "react";
+import { getLatestDagBlocks } from "@/services/api";
 
 interface LatestBlockItemProps {
   block: string;
@@ -17,9 +21,8 @@ const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
 }) => {
   return (
     <div
-      className={`flex justify-between items-start border-b border-gray-300 dark:border-gray-600 pt-4 md:pt-[25px] pb-4 md:pb-5 ${
-        className ?? ""
-      }`}
+      className={`flex justify-between items-start border-b border-gray-300 dark:border-gray-600 pt-4 md:pt-[25px] pb-4 md:pb-5 ${className ?? ""
+        }`}
     >
       <div>
         <div className="flex items-center">
@@ -48,11 +51,18 @@ interface LatestBlocksProps {
 }
 
 const LatestBlocks: React.FC<LatestBlocksProps> = ({ className }) => {
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    getLatestDagBlocks().then((res) => {
+      setData(res);
+      console.log('fetched latest dag blocks', res);
+    });
+  }, []);
   return (
     <div
-      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${
-        className ?? ""
-      }`}
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${className ?? ""
+        }`}
     >
       <div className="flex justify-between items-center py-2 md:py-4 px-4 md:px-8 border-b border-gray-300 dark:border-gray-600">
         <span className="md:text-lg font-bold whitespace-nowrap leading-[107%]">
