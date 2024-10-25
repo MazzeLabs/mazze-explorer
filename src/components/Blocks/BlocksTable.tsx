@@ -6,7 +6,7 @@ import Clock from "../svgs/Clock";
 import CircleClose from "../svgs/Failed";
 
 interface BlocksTableItemProps {
-  block: string;
+  blockNumber: string;
   age: string;
   validator: string;
   txs: string;
@@ -15,7 +15,7 @@ interface BlocksTableItemProps {
 }
 
 const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
-  block,
+  blockNumber,
   age,
   validator,
   txs,
@@ -28,7 +28,7 @@ const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
         className ?? ""
       }`}
     >
-      <td className="text-blue pr-3">{block}</td>
+      <td className="text-blue pr-3">{blockNumber}</td>
       <td className="px-3">
         <Clock className="text-orange max-md:w-5 max-md:h-5" />
       </td>

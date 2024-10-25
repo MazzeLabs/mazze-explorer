@@ -46,26 +46,26 @@ const Header = () => {
                 Home
               </Link>
               <Link
-                href={"/transfer"}
+                href={"/transactions"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
               >
-                Transfer
+                Transactions
               </Link>
               <Link
                 href={"/block"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
               >
-                Block
+                Blocks
               </Link>
-              <Link
+              {/* <Link
                 href={"/address"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-10"
               >
                 Address
-              </Link>
+              </Link> */}
             </div>
             <DarkModeSwitch className="mr-5 max-md:hidden" />
-            <NetworkSwitch />
+            {/* <NetworkSwitch /> */}
           </div>
           <button
             className="border border-gray-800 rounded-[3px] py-1 px-1.5 order-3 md:hidden"

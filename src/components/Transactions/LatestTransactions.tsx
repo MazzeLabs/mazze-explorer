@@ -95,12 +95,12 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
           Transfers
         </span>
         <div className="flex items-center">
-          <SwitchSelector
+          {/* <SwitchSelector
             items={["Latest", "Large"]}
             selected={filter}
             setSelected={setFilter}
             className="max-md:hidden"
-          />
+          /> */}
           <Link
             href={"/txs"}
             className="py-2 px-2.5 border border-gray-300 dark:border-gray-600 hover:border-orange dark:hover:border-orange transition-all rounded-[5px] leading-[138%] ml-3"

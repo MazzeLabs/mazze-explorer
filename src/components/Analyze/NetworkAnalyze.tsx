@@ -2,6 +2,7 @@ import Watch from "../svgs/Watch";
 import Database from "../svgs/Database";
 import Globe from "../svgs/Globe";
 import Logo from "../svgs/Logo";
+import { useBlockchain } from "@/contexts/BlockchainContext";
 
 interface NetworkAnalyzeProps {
   className?: string;
