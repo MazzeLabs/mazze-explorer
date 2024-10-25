@@ -144,7 +144,7 @@ export const getLatestEvmTransactions = async (): Promise<EVMTransaction[]> => {
     return response.data.data;
 };
 
-export const getTransactionByHash = async (txHash: string): Promise<CommonTransaction | undefined> => {
+export const getTransactionByHash = async (txHash: string): Promise<CommonTransaction | undefined | null> => {
     try {
         const evmTx = await api.get(`/evm/transactions/${txHash}`);
         if (evmTx.status === 200) {
@@ -161,7 +161,7 @@ export const getTransactionByHash = async (txHash: string): Promise<CommonTransa
     } catch (error) {
         console.error("Error fetching DAG transaction", error);
     }
-    return undefined;
+    return null;
 };
 
 
