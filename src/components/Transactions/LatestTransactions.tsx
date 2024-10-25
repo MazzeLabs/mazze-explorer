@@ -46,7 +46,7 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
           {/* TODO: Fix the badge background color */}
           <span className="text-sm md:text-lg">Transaction</span>
           <span className="text-sm md:text-lg font-bold text-blue ml-3.5">
-            {formatLongString(block)}
+            0x{formatLongString(block)}
           </span>
           <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
         </div>
@@ -92,7 +92,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
     >
       <div className="flex justify-between items-center py-2.5 md:py-4 px-4 md:px-8 border-b border-gray-300 dark:border-gray-600">
         <span className="md:text-lg font-bold whitespace-nowrap leading-[107%]">
-          Transfers
+          Transactions
         </span>
         <div className="flex items-center">
           {/* <SwitchSelector
@@ -102,7 +102,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
             className="max-md:hidden"
           /> */}
           <Link
-            href={"/txs"}
+            href={"/transactions"}
             className="py-2 px-2.5 border border-gray-300 dark:border-gray-600 hover:border-orange dark:hover:border-orange transition-all rounded-[5px] leading-[138%] ml-3"
           >
             View All
