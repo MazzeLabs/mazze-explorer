@@ -9,19 +9,21 @@ interface SearchInputProps {
   className?: string;
 }
 
+
+// TODO: enable all filters when we have the pages (addresses, blocks)
 const FILTERS = [
-  {
-    name: "All Filters",
-    filter: "all",
-  },
-  {
-    name: "Address",
-    filter: "address",
-  },
-  {
-    name: "Block",
-    filter: "block",
-  },
+  // {
+  //   name: "All Filters",
+  //   filter: "all",
+  // },
+  // {
+  //   name: "Address",
+  //   filter: "address",
+  // },
+  // {
+  //   name: "Block",
+  //   filter: "block",
+  // },
   {
     name: "Transaction",
     filter: "tx",
@@ -29,13 +31,12 @@ const FILTERS = [
 ];
 
 const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("tx");
 
   return (
     <div
-      className={`relative flex items-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-blue-200 ${
-        className ?? ""
-      }`}
+      className={`relative flex items-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-blue-200 ${className ?? ""
+        }`}
     >
       <Menu
         as="div"
@@ -73,7 +74,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
       </Menu>
 
       <input
-        placeholder="Search transactions, blocks and tokens"
+        placeholder="Search transactions"
         className="placeholder:text-gray-500 text-gray-800 dark:text-gray-350 leading-[138%] py-3 md:py-5 outline-none w-full mr-12 md:mr-20 max-md:text-xs dark:bg-dark-blue-200"
       />
       <button className="absolute top-[3px] bottom-[3px] right-[6px] rounded-full bg-orange text-gray-800 dark:text-white hover:bg-dark-blue hover:text-orange transition-all p-[8px] md:p-[19px]">
