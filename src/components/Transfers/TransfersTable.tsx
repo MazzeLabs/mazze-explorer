@@ -6,6 +6,7 @@ import CircleCheck from "../svgs/CircleCheck";
 import CircleClose from "../svgs/Failed";
 import { formatLongString, formatTimeAgo } from "@/utils/helpers";
 import { Mazzy } from "@mazze-labs/mazze-js-sdk";
+import Link from "next/link";
 
 interface TransfersTableProps {
   className?: string;
@@ -35,9 +36,9 @@ const TransfersTableItem: React.FC<TransfersTableItemProps> = ({
   const [fromFormatted, toFormatted] = type === "dag" ? [from.split(':')[2], to.split(':')[2]] : [from, to];
   return (
     <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-      <td className="text-blue pr-3">{formatLongString(hash)}</td>
+      <td className="text-blue pr-3"><Link href={`/transactions/${hash}`}>0x{formatLongString(hash)}</Link></td>
       <td className="px-3">{type.toUpperCase()}</td>
-      <td className="text-blue px-3">{formatLongString(blockHash)}</td>
+      <td className="text-blue px-3">0x{formatLongString(blockHash)}</td>
       <td className="text-gray-500 px-3">{formatTimeAgo(time)}</td>
       <td className="text-blue px-3">{formatLongString(fromFormatted)}</td>
       <td className="px-3">
