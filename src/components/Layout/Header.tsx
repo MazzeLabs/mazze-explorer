@@ -35,7 +35,7 @@ const Header = () => {
         <div className="container flex justify-between items-center py-1.5 md:py-2.5">
           <div className="flex items-center max-md:order-2">
             <TextLogo />
-            <NativeStatistics className="ml-4 lg:ml-[50px] max-md:hidden" />
+            {/* <NativeStatistics className="ml-4 lg:ml-[50px] max-md:hidden" /> */}
           </div>
           <div className="flex items-center max-md:order-1">
             <div className="flex items-center max-md:hidden">
