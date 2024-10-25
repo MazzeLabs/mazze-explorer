@@ -33,7 +33,9 @@ export interface CommonTransaction {
     timestamp: number | undefined;
     from: string | undefined;
     to: string | undefined;
-    value: number | undefined;
+    value: string | undefined;
+    status: "success" | "pending" | "failed";
+    blockHash: string | undefined;
 }
 
 // Create a provider component
@@ -77,8 +79,10 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
             timestamp: transaction.timestamp ? parseInt(transaction.timestamp) : undefined,
             from: transaction.from_address,
             to: transaction.to_address,
-            value: transaction.value ? parseInt(transaction.value) : undefined,
-            type: "dag"
+            value: transaction.value ?? '0',
+            type: "dag",
+            status: transaction.status === "0x0" ? "success" : "failed",
+            blockHash: transaction.block_hash
         };
     }
 
@@ -89,8 +93,10 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
             timestamp: -1, // TODO: Add timestamp
             from: transaction.from_address,
             to: transaction.to_address,
-            value: transaction.value ? parseInt(transaction.value) : undefined,
-            type: "evm"
+            value: transaction.value ?? '0',
+            type: "evm",
+            status: transaction.status === "1" ? "success" : "failed",
+            blockHash: transaction.block_hash
         };
     }
 
@@ -106,7 +112,8 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
             setEvmBlocks(evmBlocks);
             setDagTransactions(dagTransactions);
             setEvmTransactions(evmTransactions);
-
+            console.log(dagTransactions);
+            console.log(evmTransactions);
             const combinedBlocks = [
                 ...dagBlocks.map(createCommonBlockFromDag),
                 ...evmBlocks.map(createCommonBlockFromEvm)
@@ -120,8 +127,6 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
             ];
             combinedTransactions.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
             setCommonTransactions(combinedTransactions);
-
-            console.log(combinedBlocks);
         });
     }, []);
 
