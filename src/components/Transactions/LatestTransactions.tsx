@@ -7,7 +7,7 @@ import CircleCheck from "../svgs/CircleCheck";
 import Clock from "../svgs/Clock";
 import { useBlockchain } from "@/contexts/BlockchainContext";
 import { Mazzy } from "@mazze-labs/mazze-js-sdk";
-import { formatTimeAgo } from "@/utils/helpers";
+import { formatLongString, formatTimeAgo } from "@/utils/helpers";
 
 interface LatestTransactionItemProps {
   block: string;
@@ -46,7 +46,7 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
           {/* TODO: Fix the badge background color */}
           <span className="text-sm md:text-lg">Transaction</span>
           <span className="text-sm md:text-lg font-bold text-blue ml-3.5">
-            0x{block.substring(0, 6)}...{block.substring(block.length - 6)}
+            {formatLongString(block)}
           </span>
           <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
         </div>
@@ -56,9 +56,9 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
         </div>
         <div className="flex flex-wrap mt-1 md:mt-4 max-md:text-xs">
           <span className="text-gray-500">From</span> &nbsp;&nbsp;
-          <span className="text-blue">{fromFormatted?.substring(0, 6)}...{fromFormatted?.substring(fromFormatted?.length - 6)}</span> &nbsp;&nbsp;
+          <span className="text-blue">{formatLongString(fromFormatted)}</span> &nbsp;&nbsp;
           <span className="text-gray-500">To</span> &nbsp;&nbsp;
-          <span className="text-blue">{toFormatted?.substring(0, 6)}...{toFormatted?.substring(toFormatted?.length - 6)}</span>
+          <span className="text-blue">{formatLongString(toFormatted)}</span>
         </div>
       </div>
       <div className="max-md:hidden">

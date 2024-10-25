@@ -23,6 +23,7 @@ export interface CommonBlock {
     timestamp: number | undefined;
     transaction_count: number | undefined;
     blockNumber: number | undefined;
+    author: string | undefined;
 }
 
 export interface CommonTransaction {
@@ -52,7 +53,8 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
             timestamp: block.timestamp ? parseInt(block.timestamp) : undefined,
             transaction_count: block.transaction_count,
             blockNumber: block.block_number ? parseInt(block.block_number) : undefined,
-            type: "dag"
+            type: "dag",
+            author: block.miner
         };
     }
 
@@ -63,7 +65,8 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
             timestamp: block.timestamp ? parseInt(block.timestamp) : undefined,
             transaction_count: block.transaction_count,
             blockNumber: block.number ? parseInt(block.number) : undefined,
-            type: "evm"
+            type: "evm",
+            author: block.miner
         };
     }
 

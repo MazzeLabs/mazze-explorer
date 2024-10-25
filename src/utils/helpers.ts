@@ -24,3 +24,7 @@ export function formatTimeAgo(timestampInSeconds: number): string {
     }
     return Math.floor(seconds) + " seconds ago";
 }
+
+export function formatLongString(str: string): string {
+    return str.substring(0, 6) + "..." + str.substring(str.length - 6);
+}
