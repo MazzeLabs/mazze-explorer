@@ -52,7 +52,7 @@ const Header = () => {
                 Transactions
               </Link>
               <Link
-                href={"/block"}
+                href={"/blocks"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
               >
                 Blocks
