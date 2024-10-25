@@ -1,6 +1,7 @@
 "use client";
 
 import { DAGBlock, EVMBlock, getLatestDagBlocks, getLatestEvmBlocks, getLatestDagTransactions, getLatestEvmTransactions, DAGTransaction, EVMTransaction } from '@/services/api';
+import { createCommonBlockFromDag, createCommonBlockFromEvm, createCommonTransactionFromDag, createCommonTransactionFromEvm } from '@/utils/helpers';
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // Define the shape of the context state
@@ -36,6 +37,8 @@ export interface CommonTransaction {
     value: string | undefined;
     status: "success" | "pending" | "failed";
     blockHash: string | undefined;
+    gasPrice: string | undefined;
+    gas: string | undefined;
 }
 
 // Create a provider component
@@ -48,57 +51,7 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
     const [commonBlocks, setCommonBlocks] = useState<CommonBlock[]>([]);
     const [commonTransactions, setCommonTransactions] = useState<CommonTransaction[]>([]);
 
-    function createCommonBlockFromDag(block: DAGBlock): CommonBlock {
-        return {
-            id: block.id,
-            hash: block.hash,
-            timestamp: block.timestamp ? parseInt(block.timestamp) : undefined,
-            transaction_count: block.transaction_count,
-            blockNumber: block.block_number ? parseInt(block.block_number) : undefined,
-            type: "dag",
-            author: block.miner
-        };
-    }
 
-    function createCommonBlockFromEvm(block: EVMBlock): CommonBlock {
-        return {
-            id: block.id,
-            hash: block.hash,
-            timestamp: block.timestamp ? parseInt(block.timestamp) : undefined,
-            transaction_count: block.transaction_count,
-            blockNumber: block.number ? parseInt(block.number) : undefined,
-            type: "evm",
-            author: block.miner
-        };
-    }
-
-    function createCommonTransactionFromDag(transaction: DAGTransaction): CommonTransaction {
-        return {
-            id: transaction.id,
-            hash: transaction.hash,
-            timestamp: transaction.timestamp ? parseInt(transaction.timestamp) : undefined,
-            from: transaction.from_address,
-            to: transaction.to_address,
-            value: transaction.value ?? '0',
-            type: "dag",
-            status: transaction.status === "0x0" ? "success" : "failed",
-            blockHash: transaction.block_hash
-        };
-    }
-
-    function createCommonTransactionFromEvm(transaction: EVMTransaction): CommonTransaction {
-        return {
-            id: transaction.id,
-            hash: transaction.hash,
-            timestamp: -1, // TODO: Add timestamp
-            from: transaction.from_address,
-            to: transaction.to_address,
-            value: transaction.value ?? '0',
-            type: "evm",
-            status: transaction.status === "1" ? "success" : "failed",
-            blockHash: transaction.block_hash
-        };
-    }
 
 
     useEffect(() => {

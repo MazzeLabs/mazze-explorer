@@ -1,3 +1,5 @@
+import { CommonTransaction } from '@/contexts/BlockchainContext';
+import { createCommonTransactionFromDag, createCommonTransactionFromEvm } from '@/utils/helpers';
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3000';
@@ -141,5 +143,26 @@ export const getLatestEvmTransactions = async (): Promise<EVMTransaction[]> => {
     const response = await api.get('/evm/transactions');
     return response.data.data;
 };
+
+export const getTransactionByHash = async (txHash: string): Promise<CommonTransaction | undefined> => {
+    try {
+        const evmTx = await api.get(`/evm/transactions/${txHash}`);
+        if (evmTx.status === 200) {
+            return createCommonTransactionFromEvm(evmTx.data);
+        }
+    } catch (error) {
+        console.error("Error fetching EVM transaction", error);
+    }
+    try {
+        const dagTx = await api.get(`/dag/transactions/${txHash}`);
+        if (dagTx.status === 200) {
+            return createCommonTransactionFromDag(dagTx.data);
+        }
+    } catch (error) {
+        console.error("Error fetching DAG transaction", error);
+    }
+    return undefined;
+};
+
 
 export default api;

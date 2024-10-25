@@ -10,7 +10,7 @@ import { Mazzy } from "@mazze-labs/mazze-js-sdk";
 import { formatLongString, formatTimeAgo } from "@/utils/helpers";
 
 interface LatestTransactionItemProps {
-  block: string;
+  txHash: string;
   from: string;
   to: string;
   age: number;
@@ -20,7 +20,7 @@ interface LatestTransactionItemProps {
 }
 
 const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
-  block,
+  txHash,
   from,
   to,
   age,
@@ -46,7 +46,12 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
           {/* TODO: Fix the badge background color */}
           <span className="text-sm md:text-lg">Transaction</span>
           <span className="text-sm md:text-lg font-bold text-blue ml-3.5">
-            0x{formatLongString(block)}
+            <Link
+              href={`/transactions/${txHash}`}
+            >
+              0x{formatLongString(txHash)}
+            </Link>
+
           </span>
           <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
         </div>
@@ -114,7 +119,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
           {commonTransactions.map((transaction, index) => (
             <LatestTransactionItem
               key={index}
-              block={transaction.hash ?? ""}
+              txHash={transaction.hash ?? ""}
               from={transaction.from ?? ""}
               to={transaction.to ?? ""}
               amount={transaction.value?.toString() ?? "0"}
