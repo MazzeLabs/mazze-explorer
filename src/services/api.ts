@@ -1,5 +1,5 @@
-import { CommonTransaction } from '@/contexts/BlockchainContext';
-import { createCommonTransactionFromDag, createCommonTransactionFromEvm } from '@/utils/helpers';
+import { CommonBlock, CommonTransaction } from '@/contexts/BlockchainContext';
+import { createCommonBlockFromDag, createCommonBlockFromEvm, createCommonTransactionFromDag, createCommonTransactionFromEvm } from '@/utils/helpers';
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3000';
@@ -160,6 +160,30 @@ export const getTransactionByHash = async (txHash: string): Promise<CommonTransa
         }
     } catch (error) {
         console.error("Error fetching DAG transaction", error);
+    }
+    return null;
+};
+
+export const getEvmBlockByHash = async (blockHash: string): Promise<EVMBlock | null> => {
+    try {
+        const evmBlock = await api.get(`/evm/blocks/${blockHash}`);
+        if (evmBlock.status === 200) {
+            return evmBlock.data;
+        }
+    } catch (error) {
+        console.error("Error fetching EVM block", error);
+    }
+    return null;
+};
+
+export const getDagBlockByHash = async (blockHash: string): Promise<DAGBlock | null> => {
+    try {
+        const dagBlock = await api.get(`/dag/blocks/${blockHash}`);
+        if (dagBlock.status === 200) {
+            return dagBlock.data;
+        }
+    } catch (error) {
+        console.error("Error fetching DAG block", error);
     }
     return null;
 };

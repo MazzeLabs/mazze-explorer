@@ -8,6 +8,7 @@ import CircleMinus from "../svgs/CircleMinus";
 import Clock from "../svgs/Clock";
 import CircleClose from "../svgs/Failed";
 import { formatLongString, formatMazzeAddress, formatTimeAgo } from "@/utils/helpers";
+import Link from "next/link";
 
 interface BlocksTableItemProps {
   blockNumber: string;
@@ -44,7 +45,9 @@ const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
         <CircleLink className="text-green mr-1" />
         {formatLongString(type === "dag" ? formatMazzeAddress(validator) : validator)}
       </td>
-      <td className="text-blue px-3">0x{formatLongString(hash)}</td>
+      <td className="text-blue px-3">
+        <Link href={`/blocks/${hash}`}>0x{formatLongString(hash)}</Link>
+      </td>
     </tr>
   );
 };

@@ -10,6 +10,7 @@ import { formatTimeAgo } from "@/utils/helpers";
 
 interface LatestBlockItemProps {
   block: string;
+  blockHash: string;
   tx: string;
   age: number;
   className?: string;
@@ -18,6 +19,7 @@ interface LatestBlockItemProps {
 
 const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
   block,
+  blockHash,
   tx,
   age,
   className,
@@ -31,7 +33,9 @@ const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
       <div>
         <div className="flex items-center">
           <span className="text-sm md:text-lg">Block</span>
-          <span className="text-sm md:text-lg font-bold ml-3.5">#{block}</span>
+          <span className="text-sm md:text-lg font-bold ml-3.5">
+            <Link href={`/blocks/${blockHash}`}>#{block}</Link>
+          </span>
           {/* TODO: Fix the badge background color */}
           <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
 
@@ -82,6 +86,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({ className }) => {
             <LatestBlockItem
               key={block.id}
               block={block.blockNumber?.toString() ?? 'N/A'}
+              blockHash={block.hash ?? 'N/A'}
               tx={block.transaction_count?.toString() ?? 'N/A'}
               age={block.timestamp ?? 0}
               type={block.type}

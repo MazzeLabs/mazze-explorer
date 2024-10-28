@@ -7,6 +7,7 @@ import TriArrowRight from "../svgs/TriArrowRight";
 import { formatLongString, formatMazzeAddress, formatTimeAgo } from "@/utils/helpers";
 import { CommonTransaction } from "@/contexts/BlockchainContext";
 import { Mazzy } from "@mazze-labs/mazze-js-sdk";
+import Link from "next/link";
 
 interface TransactionDetaliCardProps {
   className?: string;
@@ -51,12 +52,8 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
         <div className="flex items-center max-md:mt-2">
           <div className="flex items-center mr-3 leading-[138%] max-md:text-sm">
             <CircleCheckFilled className="text-green mr-1 md:mr-1.5 max-md:w-[15px] max-md:h-[15px]" />
-            {/* TODO: Add link here once we have the block page */}
-            {transaction.blockHash}
+            <Link href={`/blocks/${transaction.blockHash}`}>0x{transaction.blockHash}</Link>
           </div>
-          {/* <div className="border border-gray-300 rounded-[10px] py-0.5 px-2 text-xs md:text-sm leading-[138%] text-gray-900 w-fit">
-            2001 Block Confirmations
-          </div> */}
         </div>
       </div>
       <div className="flex max-md:flex-col items-start">
