@@ -18,8 +18,8 @@ const BlockPage = () => {
   const [evmBlock, setEvmBlock] = useState<EVMBlock | undefined | null>(undefined);
   const [dagBlock, setDagBlock] = useState<DAGBlock | undefined | null>(undefined);
   useEffect(() => {
-    getEvmBlockByHash(blockHash).then(setEvmBlock);
-    getDagBlockByHash(blockHash).then(setDagBlock);
+    getEvmBlockByHash(blockHash, true).then(setEvmBlock);
+    getDagBlockByHash(blockHash, true).then(setDagBlock);
   }, [blockHash]);
 
   useEffect(() => {

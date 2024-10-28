@@ -58,6 +58,7 @@ export interface DAGBlock {
     base_fee_per_gas?: string;
     custom?: string;
     transaction_count?: number; // i64 in Rust
+    transactions?: DAGTransaction[];
 }
 
 export interface EVMTransaction {
@@ -164,9 +165,47 @@ export const getTransactionByHash = async (txHash: string): Promise<CommonTransa
     return null;
 };
 
-export const getEvmBlockByHash = async (blockHash: string): Promise<EVMBlock | null> => {
+export const getEvmBlockByHash = async (blockHash: string, includeTransactions: boolean = false): Promise<EVMBlock | null> => {
     try {
         const evmBlock = await api.get(`/evm/blocks/${blockHash}`);
+        if (evmBlock.status === 200) {
+            if (includeTransactions) {
+                const txs = await getEvmTransactionsByBlockHash(evmBlock.data.hash ?? '');
+                return {
+                    ...evmBlock.data,
+                    transactions: txs
+                };
+            }
+            return evmBlock.data;
+        }
+    } catch (error) {
+        console.error("Error fetching EVM block", error);
+    }
+    return null;
+};
+
+export const getDagBlockByHash = async (blockHash: string, includeTransactions: boolean = false): Promise<DAGBlock | null> => {
+    try {
+        const dagBlock = await api.get(`/dag/blocks/${blockHash}`);
+        if (dagBlock.status === 200) {
+            if (includeTransactions) {
+                const txs = await getDagTransactionsByBlockHash(dagBlock.data.hash ?? '');
+                return {
+                    ...dagBlock.data,
+                    transactions: txs
+                };
+            }
+            return dagBlock.data;
+        }
+    } catch (error) {
+        console.error("Error fetching DAG block", error);
+    }
+    return null;
+};
+
+export const getEvmTransactionsByBlockHash = async (blockHash: string): Promise<EVMTransaction[] | null> => {
+    try {
+        const evmBlock = await api.get(`/evm/blocks/${blockHash}/transactions`);
         if (evmBlock.status === 200) {
             return evmBlock.data;
         }
@@ -176,9 +215,9 @@ export const getEvmBlockByHash = async (blockHash: string): Promise<EVMBlock | n
     return null;
 };
 
-export const getDagBlockByHash = async (blockHash: string): Promise<DAGBlock | null> => {
+export const getDagTransactionsByBlockHash = async (blockHash: string): Promise<DAGTransaction[] | null> => {
     try {
-        const dagBlock = await api.get(`/dag/blocks/${blockHash}`);
+        const dagBlock = await api.get(`/dag/blocks/${blockHash}/transactions`);
         if (dagBlock.status === 200) {
             return dagBlock.data;
         }
