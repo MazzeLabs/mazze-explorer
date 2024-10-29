@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getLatestDagBlocks } from "@/services/api";
 import { useBlockchain } from "@/contexts/BlockchainContext";
 import { formatTimeAgo } from "@/utils/helpers";
+import { SourceChainTypeBadge } from "../SourceChainTypeBadge";
 
 interface LatestBlockItemProps {
   block: string;
@@ -36,9 +37,7 @@ const LatestBlockItem: React.FC<LatestBlockItemProps> = ({
           <span className="text-sm md:text-lg font-bold ml-3.5">
             <Link href={`/blocks/${blockHash}`}>#{block}</Link>
           </span>
-          {/* TODO: Fix the badge background color */}
-          <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
-
+          <SourceChainTypeBadge type={type} />
         </div>
         <div className="flex items-center mt-1 md:hidden">
           <span className="text-gray-500 max-md:text-sm">{formatTimeAgo(age)}</span>

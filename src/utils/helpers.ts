@@ -30,8 +30,8 @@ export function formatTimeAgo(timestampInSeconds: number): string {
     return Math.floor(seconds) + " seconds ago";
 }
 
-export function formatLongString(str: string): string {
-    return str?.substring(0, 6) + "..." + str?.substring(str?.length - 6);
+export function formatLongString(str: string, length: number = 6): string {
+    return str?.substring(0, length) + "..." + str?.substring(str?.length - length);
 }
 
 export function createCommonBlockFromDag(block: DAGBlock): CommonBlock {
@@ -114,6 +114,9 @@ export function hexToMazzeAddress(hexAddress: string): string | undefined {
 
 export function sanitizeMazzeAddress(address: string): string {
     address = address.toLowerCase();
+    // if (address.split(':').length > 1) {
+    //     address = address.split(':')[address.split(':').length - 1];
+    // }
     if (!address.includes(':')) {
         address = "mazze:" + address;
     }

@@ -9,6 +9,7 @@ import Clock from "../svgs/Clock";
 import CircleClose from "../svgs/Failed";
 import { formatLongString, formatMazzeAddress, formatTimeAgo } from "@/utils/helpers";
 import Link from "next/link";
+import { SourceChainTypeBadge } from "../SourceChainTypeBadge";
 
 interface BlocksTableItemProps {
   blockNumber: string;
@@ -34,8 +35,8 @@ const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
       className={`border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${className ?? ""
         }`}
     >
-      <td className="text-blue pr-3">{blockNumber}</td>
-      <td className="px-3">{type.toUpperCase()}</td>
+      <td className="text-blue pr-3"><Link href={`/blocks/${hash}`}>{blockNumber}</Link></td>
+      <td className="px-3"><SourceChainTypeBadge type={type} /></td>
       <td className="px-3">
         <CircleCheck className="ml-2.5 text-green" />
       </td>
@@ -43,10 +44,10 @@ const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
       <td className="text-blue px-3">{txs}</td>
       <td className="text-blue px-3 flex items-center">
         <CircleLink className="text-green mr-1" />
-        <Link href={`/accounts/${type === "dag" ? formatMazzeAddress(validator) : validator}`}>{formatLongString(type === "dag" ? formatMazzeAddress(validator) : validator)}</Link>
+        <Link href={`/accounts/${type === "dag" ? formatMazzeAddress(validator) : validator}`}>{formatLongString(type === "dag" ? formatMazzeAddress(validator) : `0x${validator}`)}</Link>
       </td>
       <td className="text-blue px-3">
-        <Link href={`/blocks/${hash}`}>0x{formatLongString(hash)}</Link>
+        <Link href={`/blocks/${hash}`}>{formatLongString(hash)}</Link>
       </td>
     </tr>
   );
@@ -60,7 +61,7 @@ const BlocksTable: React.FC<BlocksTableProps> = ({ className }) => {
   const { commonBlocks } = useBlockchain();
   return (
     <div
-      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 p-4 md:p-5 rounded-[10px] ${className ?? ""
+      className={`dark:bg-dark-blue-200 dark:border dark:border-gray-750 p-4 md:p-5 rounded-[10px] ${className ?? ""
         }`}
     >
       <div className="overflow-x-auto px-4 md:px-5 pb-0.5">
@@ -95,42 +96,42 @@ const BlocksTable: React.FC<BlocksTableProps> = ({ className }) => {
               age="1"
               txs="1"
               validator="Mazze 1"
-              hash="0xfabb....aa1631"
+              hash="fabb....aa1631"
             />
             <BlocksTableItem
               block="35,152"
               age="2"
               txs="1"
               validator="Mazze 1"
-              hash="0xa43d....ec78af"
+              hash="a43d....ec78af"
             />
             <BlocksTableItem
               block="35,150"
               age="3"
               txs="1"
               validator="Mazze 1"
-              hash="0xf277....1bda5e"
+              hash="f277....1bda5e"
             />
             <BlocksTableItem
               block="35,149"
               age="4"
               txs="1"
               validator="Mazze 1"
-              hash="0x2dec....adfe32"
+              hash="2dec....adfe32"
             />
             <BlocksTableItem
               block="35,148"
               age="5"
               txs="1"
               validator="Mazze 1"
-              hash="0xd160....9a9278"
+              hash="d160....9a9278"
             />
             <BlocksTableItem
               block="35,147"
               age="6"
               txs="1"
               validator="Mazze 1"
-              hash="0xd43f....c90d3d"
+              hash="d43f....c90d3d"
             /> */}
             {commonBlocks.map((block) => (
               <BlocksTableItem

@@ -7,7 +7,8 @@ import CircleCheck from "../svgs/CircleCheck";
 import Clock from "../svgs/Clock";
 import { useBlockchain } from "@/contexts/BlockchainContext";
 import { Mazzy } from "@mazze-labs/mazze-js-sdk";
-import { formatLongString, formatTimeAgo } from "@/utils/helpers";
+import { formatLongString, formatMazzeAddress, formatTimeAgo, hexToMazzeAddress, sanitizeMazzeAddress } from "@/utils/helpers";
+import { SourceChainTypeBadge } from "../SourceChainTypeBadge";
 
 interface LatestTransactionItemProps {
   txHash: string;
@@ -28,7 +29,6 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
   className,
   type,
 }) => {
-  const [fromFormatted, toFormatted] = type === "dag" ? [from.split(':')[2], to.split(':')[2]] : [from, to];
   const amountFormatted = new Mazzy(amount).toMAZZE();
 
   return (
@@ -49,21 +49,31 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
             <Link
               href={`/transactions/${txHash}`}
             >
-              0x{formatLongString(txHash)}
+              {formatLongString(txHash)}
             </Link>
 
           </span>
-          <span className={`ml-2 px-2 py-1 text-white rounded ${type === "dag" ? "bg-green-500" : "bg-orange-500"}`}>{type === "dag" ? 'DAG' : 'EVM'}</span> {/* Badge */}
+          <SourceChainTypeBadge type={type} />
         </div>
         <div className="flex items-center mt-1 md:hidden">
           <span className="text-gray-500 max-md:text-sm">{age} secs ago</span>
           <CircleCheck className="ml-2.5 text-green" />
         </div>
         <div className="flex flex-wrap mt-1 md:mt-4 max-md:text-xs">
-          <span className="text-gray-500">From</span> &nbsp;&nbsp;
-          <Link href={`/accounts/${fromFormatted}`} className="text-blue">{formatLongString(fromFormatted)}</Link> &nbsp;&nbsp;
-          <span className="text-gray-500">To</span> &nbsp;&nbsp;
-          <Link href={`/accounts/${toFormatted}`} className="text-blue">{formatLongString(toFormatted)}</Link>
+          {type === 'dag' && <>
+            <span className="text-gray-500">From</span> &nbsp;&nbsp;
+            <Link href={`/accounts/${formatMazzeAddress(sanitizeMazzeAddress(from))}`} className="text-blue">{formatLongString(formatMazzeAddress(sanitizeMazzeAddress(from)), 10)}</Link> &nbsp;&nbsp;
+            <span className="text-gray-500">To</span> &nbsp;&nbsp;
+            <Link href={`/accounts/${formatMazzeAddress(sanitizeMazzeAddress(to))}`} className="text-blue">{formatLongString(formatMazzeAddress(sanitizeMazzeAddress(to)), 10)}</Link>
+          </>
+          }
+          {type === 'evm' && <>
+            <span className="text-gray-500">From</span> &nbsp;&nbsp;
+            <Link href={`#`} className="text-blue">{formatLongString(from, 10)}</Link> &nbsp;&nbsp;
+            <span className="text-gray-500">To</span> &nbsp;&nbsp;
+            <Link href={`#`} className="text-blue">{formatLongString(to, 10)}</Link>
+          </>
+          }
         </div>
       </div>
       <div className="max-md:hidden">

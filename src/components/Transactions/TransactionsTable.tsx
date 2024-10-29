@@ -28,7 +28,7 @@ const TransactionsTableItem: React.FC<TransactionsTableItemProps> = ({
         }`}
     >
       <td className="text-blue pr-3">
-        <Link href={`/transactions/${hash}`}>0x{hash}</Link>
+        <Link href={`/transactions/${hash}`}>{hash}</Link>
       </td>
       <td className="text-blue px-3">{method}</td>
       <td className="text-blue px-3">{block}</td>

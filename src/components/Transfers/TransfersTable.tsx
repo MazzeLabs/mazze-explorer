@@ -38,11 +38,11 @@ const TransfersTableItem: React.FC<TransfersTableItemProps> = ({
   return (
     <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
       <td className="text-blue pr-3">
-        <Link href={`/transactions/${hash}`}>0x{formatLongString(hash)}</Link>
+        <Link href={`/transactions/${hash}`}>{formatLongString(hash)}</Link>
       </td>
       <td className="px-3">{type.toUpperCase()}</td>
       <td className="text-blue px-3">
-        <Link href={`/blocks/${blockHash}`}>0x{formatLongString(blockHash)}</Link>
+        <Link href={`/blocks/${blockHash}`}>{formatLongString(blockHash)}</Link>
       </td>
       <td className="text-gray-500 px-3">{formatTimeAgo(time)}</td>
       <td className="text-blue px-3">

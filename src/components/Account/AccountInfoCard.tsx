@@ -37,8 +37,8 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ base32Address, hexAdd
             <CopyClipboard text={base32Address} className="inline-block ml-1" />
           </div>
           {/* <div>
-            EVM: <span className="text-blue">0x{mazzeAddressToHex(formatMazzeAddress(base32Address))}{" "}</span>
-            <CopyClipboard text={`0x${mazzeAddressToHex(formatMazzeAddress(base32Address))}`} className="inline-block ml-1" />
+            EVM: <span className="text-blue">{mazzeAddressToHex(formatMazzeAddress(base32Address))}{" "}</span>
+            <CopyClipboard text={`${mazzeAddressToHex(formatMazzeAddress(base32Address))}`} className="inline-block ml-1" />
           </div> */}
         </div>
         <div className="border-t border-gray-300 dark:border-none pt-[18px]">

@@ -17,6 +17,9 @@ const getMazzeSdk = async (rpcUrl: string, chainId: number) => {
 export const getDagAccount = async (address: string) => {
     try {
         // const mazze = await getMazzeSdk(`${RPC_URL}:${RPC_PORT_DAG}`, DAG_CHAIN_ID);
+        if (address.includes(":")) {
+            address = address.split(':')[address.split(':').length - 1];
+        }
         const mazze = await getMazzeSdk(`https://devnet-dag-rpc.mazze.io`, DAG_CHAIN_ID);
         return mazze.getAccount(sanitizeMazzeAddress(address));
     } catch (error) {
