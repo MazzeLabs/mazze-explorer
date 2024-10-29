@@ -42,11 +42,11 @@ const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen, className }) => {
           Block
         </Link>
         <Link
-          href={"/address"}
+          href={"/accounts"}
           className="text-white mt-9"
           onClick={() => setOpen(false)}
         >
-          Address
+          Accounts
         </Link>
         <DarkModeSwitch className="mt-10" />
         <NativeStatistics className="mt-[30px]" />

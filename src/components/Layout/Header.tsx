@@ -58,10 +58,10 @@ const Header = () => {
                 Blocks
               </Link>
               {/* <Link
-                href={"/address"}
+                href={"/accounts"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-10"
               >
-                Address
+                Accounts
               </Link> */}
             </div>
             <DarkModeSwitch className="mr-5 max-md:hidden" />

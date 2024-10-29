@@ -29,7 +29,7 @@ export function formatTimeAgo(timestampInSeconds: number): string {
 }
 
 export function formatLongString(str: string): string {
-    return str.substring(0, 6) + "..." + str.substring(str.length - 6);
+    return str?.substring(0, 6) + "..." + str?.substring(str?.length - 6);
 }
 
 export function createCommonBlockFromDag(block: DAGBlock): CommonBlock {
