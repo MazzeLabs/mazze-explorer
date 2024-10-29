@@ -2,6 +2,7 @@ import Watch from "../svgs/Watch";
 import Database from "../svgs/Database";
 import Globe from "../svgs/Globe";
 import Logo from "../svgs/Logo";
+import { useBlockchain } from "@/contexts/BlockchainContext";
 
 interface NetworkAnalyzeProps {
   className?: string;
@@ -10,9 +11,8 @@ interface NetworkAnalyzeProps {
 const NetworkAnalyze: React.FC<NetworkAnalyzeProps> = ({ className }) => {
   return (
     <div
-      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] py-2.5 px-7 md:px-[35px] ${
-        className ?? ""
-      }`}
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] py-2.5 px-7 md:px-[35px] ${className ?? ""
+        }`}
     >
       <div className="flex max-md:flex-col border-b border-gray-300 dark:border-gray-600">
         <div className="pt-4 h-[90px] md:h-[110px] max-md:border-b md:border-r border-gray-300 dark:border-gray-600 w-full">

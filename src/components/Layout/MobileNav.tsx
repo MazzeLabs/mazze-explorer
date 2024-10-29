@@ -13,9 +13,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen, className }) => {
   return (
     <div
       data-open={open}
-      className={`fixed w-[270px] top-0 right-0 z-20 data-[open=false]:translate-x-full transition-all ${
-        className ?? ""
-      }`}
+      className={`fixed w-[270px] top-0 right-0 z-20 data-[open=false]:translate-x-full transition-all ${className ?? ""
+        }`}
     >
       <div className="flex items-center justify-between bg-light-blue py-4 pl-6 pr-7">
         <span className="font-bold text-white leading-[107%]">MENU</span>
@@ -28,26 +27,26 @@ const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen, className }) => {
           Home
         </Link>
         <Link
-          href={"/transfer"}
+          href={"/transactions"}
           className="text-white mt-9"
           onClick={() => setOpen(false)}
         >
-          Transfer
+          Transactions
         </Link>
         <Link
-          href={"/block"}
+          href={"/blocks"}
           className="text-white mt-9"
           onClick={() => setOpen(false)}
         >
-          Block
+          Blocks
         </Link>
-        <Link
-          href={"/address"}
+        {/* <Link
+          href={"/accounts"}
           className="text-white mt-9"
           onClick={() => setOpen(false)}
         >
-          Address
-        </Link>
+          Accounts
+        </Link> */}
         <DarkModeSwitch className="mt-10" />
         <NativeStatistics className="mt-[30px]" />
       </div>

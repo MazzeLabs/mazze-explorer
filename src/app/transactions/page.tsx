@@ -8,9 +8,9 @@ const Transfer = () => {
       <div className="absolute bg-orange w-[125px] h-[300px] -rotate-[76deg] blur-[250px] right-[100px] top-[380px] -z-[1] max-md:hidden" />
       <SearchInput className="mt-2.5 md:mt-8" />
       <h1 className="md:text-lg leading-[107%] mt-6 md:mt-11">
-        Transfer History
+        Transactions History
       </h1>
-      <TransferHistoryChart className="mt-2 md:mt-[18px]" />
+      {/* <TransferHistoryChart className="mt-2 md:mt-[18px]" /> */}
       <TransfersTable className="mt-[18px] p-4 md:p-5" />
     </main>
   );

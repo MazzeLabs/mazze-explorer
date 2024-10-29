@@ -1,5 +1,7 @@
+import Link from "next/link";
 import CircleCheck from "../svgs/CircleCheck";
 import CircleMinus from "../svgs/CircleMinus";
+import { CommonTransaction } from "@/contexts/BlockchainContext";
 
 interface TransactionsTableItemProps {
   hash: string;
@@ -22,11 +24,12 @@ const TransactionsTableItem: React.FC<TransactionsTableItemProps> = ({
 }) => {
   return (
     <tr
-      className={`border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${
-        className ?? ""
-      }`}
+      className={`border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${className ?? ""
+        }`}
     >
-      <td className="text-blue pr-3">{hash}</td>
+      <td className="text-blue pr-3">
+        <Link href={`/transactions/${hash}`}>{hash}</Link>
+      </td>
       <td className="text-blue px-3">{method}</td>
       <td className="text-blue px-3">{block}</td>
       <td className="text-gray-500 px-3">{age}</td>
@@ -44,10 +47,10 @@ interface TransactionsTableProps {
 
 const TransactionsTable: React.FC<TransactionsTableProps> = ({ className }) => {
   return (
+
     <div
-      className={`bg-white dark:bg-dark-blue-200 rounded-[10px] ${
-        className ?? ""
-      }`}
+      className={`bg-white dark:bg-dark-blue-200 rounded-[10px] ${className ?? ""
+        }`}
     >
       <div className="overflow-x-auto px-4 md:px-5 pb-0.5">
         <table className="min-w-full">

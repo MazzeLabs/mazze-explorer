@@ -35,7 +35,7 @@ const Header = () => {
         <div className="container flex justify-between items-center py-1.5 md:py-2.5">
           <div className="flex items-center max-md:order-2">
             <TextLogo />
-            <NativeStatistics className="ml-4 lg:ml-[50px] max-md:hidden" />
+            {/* <NativeStatistics className="ml-4 lg:ml-[50px] max-md:hidden" /> */}
           </div>
           <div className="flex items-center max-md:order-1">
             <div className="flex items-center max-md:hidden">
@@ -46,26 +46,26 @@ const Header = () => {
                 Home
               </Link>
               <Link
-                href={"/transfer"}
+                href={"/transactions"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
               >
-                Transfer
+                Transactions
               </Link>
               <Link
-                href={"/block"}
+                href={"/blocks"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
               >
-                Block
+                Blocks
               </Link>
-              <Link
-                href={"/address"}
+              {/* <Link
+                href={"/accounts"}
                 className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-10"
               >
-                Address
-              </Link>
+                Accounts
+              </Link> */}
             </div>
             <DarkModeSwitch className="mr-5 max-md:hidden" />
-            <NetworkSwitch />
+            {/* <NetworkSwitch /> */}
           </div>
           <button
             className="border border-gray-800 rounded-[3px] py-1 px-1.5 order-3 md:hidden"

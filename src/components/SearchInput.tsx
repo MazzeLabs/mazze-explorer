@@ -4,24 +4,27 @@ import { Menu, Transition } from "@headlessui/react";
 import Magnifier from "./svgs/Magnifier";
 import ChevronDown from "./svgs/ChevronDown";
 import { Fragment, useState } from "react";
+import { useRouter } from 'next/navigation';
 
 interface SearchInputProps {
   className?: string;
 }
 
+
+// TODO: enable all filters when we have the pages (addresses, blocks)
 const FILTERS = [
-  {
-    name: "All Filters",
-    filter: "all",
-  },
-  {
-    name: "Address",
-    filter: "address",
-  },
-  {
-    name: "Block",
-    filter: "block",
-  },
+  // {
+  //   name: "All Filters",
+  //   filter: "all",
+  // },
+  // {
+  //   name: "Address",
+  //   filter: "address",
+  // },
+  // {
+  //   name: "Block",
+  //   filter: "block",
+  // },
   {
     name: "Transaction",
     filter: "tx",
@@ -29,13 +32,38 @@ const FILTERS = [
 ];
 
 const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("tx");
+
+  const [searchInput, setSearchInput] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSearch();
+  };
+
+  const onSearch = () => {
+    if (!searchInput.trim()) {
+      // Don't search if the input is empty
+      return;
+    }
+
+    const cleanedInput = searchInput.trim().toLowerCase();
+    const txHash = cleanedInput.startsWith('0x') ? cleanedInput.substring(2) : cleanedInput;
+
+    if (/^[a-f0-9]{64}$/i.test(txHash)) {
+      console.log("Navigating to transaction", txHash);
+      router.push(`/transactions/${txHash}`);
+    } else {
+      console.log("Invalid transaction hash", searchInput);
+      // TODO: Show an error message to the user
+    }
+  };
 
   return (
     <div
-      className={`relative flex items-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-blue-200 ${
-        className ?? ""
-      }`}
+      className={`relative flex items-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-blue-200 ${className ?? ""
+        }`}
     >
       <Menu
         as="div"
@@ -72,13 +100,17 @@ const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
         </Transition>
       </Menu>
 
-      <input
-        placeholder="Search transactions, blocks and tokens"
-        className="placeholder:text-gray-500 text-gray-800 dark:text-gray-350 leading-[138%] py-3 md:py-5 outline-none w-full mr-12 md:mr-20 max-md:text-xs dark:bg-dark-blue-200"
-      />
-      <button className="absolute top-[3px] bottom-[3px] right-[6px] rounded-full bg-orange text-gray-800 dark:text-white hover:bg-dark-blue hover:text-orange transition-all p-[8px] md:p-[19px]">
-        <Magnifier className="m-auto" />
-      </button>
+      <form onSubmit={handleSubmit} className="flex-grow">
+        <input
+          placeholder="Search transactions"
+          className="placeholder:text-gray-500 text-gray-800 dark:text-gray-350 leading-[138%] py-3 md:py-5 outline-none w-full pr-12 md:pr-20 max-md:text-xs dark:bg-dark-blue-200"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <button type="submit" className="absolute top-[3px] bottom-[3px] right-[6px] rounded-full bg-orange text-gray-800 dark:text-white hover:bg-dark-blue hover:text-orange transition-all p-[8px] md:p-[19px]">
+          <Magnifier className="m-auto" />
+        </button>
+      </form>
     </div>
   );
 };
