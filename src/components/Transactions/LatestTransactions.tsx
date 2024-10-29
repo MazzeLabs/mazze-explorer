@@ -61,9 +61,9 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
         </div>
         <div className="flex flex-wrap mt-1 md:mt-4 max-md:text-xs">
           <span className="text-gray-500">From</span> &nbsp;&nbsp;
-          <span className="text-blue">{formatLongString(fromFormatted)}</span> &nbsp;&nbsp;
+          <Link href={`/accounts/${fromFormatted}`} className="text-blue">{formatLongString(fromFormatted)}</Link> &nbsp;&nbsp;
           <span className="text-gray-500">To</span> &nbsp;&nbsp;
-          <span className="text-blue">{formatLongString(toFormatted)}</span>
+          <Link href={`/accounts/${toFormatted}`} className="text-blue">{formatLongString(toFormatted)}</Link>
         </div>
       </div>
       <div className="max-md:hidden">

@@ -1,5 +1,7 @@
 import { CommonBlock, CommonTransaction } from "@/contexts/BlockchainContext";
 import { DAGBlock, EVMBlock, DAGTransaction, EVMTransaction } from "@/services/api";
+const SDK = require("@mazze-labs/mazze-js-sdk");
+const { decode, isValidMazzeAddress } = require("@mazze-labs/mazze-address-js");
 
 export function formatTimeAgo(timestampInSeconds: number): string {
     const nowInSeconds = Math.floor(Date.now() / 1000);
@@ -89,5 +91,32 @@ export function createCommonTransactionFromEvm(transaction: EVMTransaction): Com
 }
 
 export function formatMazzeAddress(address: string): string {
-    return address.split(':')[address.split(':').length - 1];
+    return address.split(':')[address.split(':').length - 1].toLowerCase();
+}
+
+export function mazzeAddressToHex(address: string): string | undefined {
+    address = address.toLowerCase();
+    if (!address.includes(':')) {
+        address = "mazze:" + address;
+    }
+
+    if (isValidMazzeAddress(address)) {
+        return decode(address).hexAddress.toString('hex');
+    }
+}
+
+export function hexToMazzeAddress(hexAddress: string): string | undefined {
+    if (!hexAddress.startsWith("0x")) {
+        hexAddress = "0x" + hexAddress;
+    }
+    return SDK.format.address(hexAddress, 1990);
+}
+
+export function sanitizeMazzeAddress(address: string): string {
+    address = address.toLowerCase();
+    if (!address.includes(':')) {
+        address = "mazze:" + address;
+    }
+
+    return address;
 }

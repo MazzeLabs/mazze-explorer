@@ -78,7 +78,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
             <span className="text-gray-500">Transfer</span>&nbsp;{new Mazzy(transaction.value ?? '0').toMAZZE()}
             {' '}MAZZE&nbsp;
             <span className="text-gray-500">To</span>
-            &nbsp;{formatLongString(transaction.type === 'dag' ? formatMazzeAddress(transaction.to ?? '') : transaction.to ?? '')}
+            &nbsp;<Link href={`/accounts/${transaction.type === 'dag' ? formatMazzeAddress(transaction.to ?? '') : transaction.to ?? ''}`}>{formatLongString(transaction.type === 'dag' ? formatMazzeAddress(transaction.to ?? '') : transaction.to ?? '')}</Link>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
           From:
         </div>
         <div className="leading-[138%] max-md:text-xs max-md:mt-2 w-full break-words">
-          {transaction.type === 'dag' ? formatMazzeAddress(transaction.from ?? '') : transaction.from ?? ''}
+          <Link href={`/accounts/${transaction.type === 'dag' ? formatMazzeAddress(transaction.from ?? '') : transaction.from ?? ''}`}>{transaction.type === 'dag' ? formatMazzeAddress(transaction.from ?? '') : transaction.from ?? ''}</Link>
           <CopyClipboard text={transaction.type === 'dag' ? formatMazzeAddress(transaction.from ?? '') : transaction.from ?? ''} className="ml-2 inline-block" />
         </div>
       </div>
@@ -104,7 +104,7 @@ const TransactionDetaliCard: React.FC<TransactionDetaliCardProps> = ({
           To:
         </div>
         <div className="leading-[138%] max-md:text-xs max-md:mt-2 w-full break-words">
-          {transaction.type === 'dag' ? formatMazzeAddress(transaction.to ?? '') : transaction.to ?? ''}
+          <Link href={`/accounts/${transaction.type === 'dag' ? formatMazzeAddress(transaction.to ?? '') : transaction.to ?? ''}`}>{transaction.type === 'dag' ? formatMazzeAddress(transaction.to ?? '') : transaction.to ?? ''}</Link>
           <CopyClipboard text={transaction.type === 'dag' ? formatMazzeAddress(transaction.to ?? '') : transaction.to ?? ''} className="ml-2 inline-block" />
         </div>
       </div>

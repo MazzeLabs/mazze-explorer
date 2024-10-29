@@ -1,6 +1,7 @@
 "use client";
 
 import { DAGBlock, EVMBlock, getLatestDagBlocks, getLatestEvmBlocks, getLatestDagTransactions, getLatestEvmTransactions, DAGTransaction, EVMTransaction } from '@/services/api';
+import { getMazzeWallets } from '@/services/rpc';
 import { createCommonBlockFromDag, createCommonBlockFromEvm, createCommonTransactionFromDag, createCommonTransactionFromEvm } from '@/utils/helpers';
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
@@ -53,13 +54,12 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
 
 
 
-
     useEffect(() => {
         Promise.all([
             getLatestDagBlocks(),
             getLatestEvmBlocks(),
             getLatestDagTransactions(),
-            getLatestEvmTransactions()
+            getLatestEvmTransactions(),
         ]).then(([dagBlocks, evmBlocks, dagTransactions, evmTransactions]) => {
             setDagBlocks(dagBlocks);
             setEvmBlocks(evmBlocks);

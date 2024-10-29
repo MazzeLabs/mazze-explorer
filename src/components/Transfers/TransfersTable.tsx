@@ -36,17 +36,23 @@ const TransfersTableItem: React.FC<TransfersTableItemProps> = ({
   const [fromFormatted, toFormatted] = type === "dag" ? [from.split(':')[2], to.split(':')[2]] : [from, to];
   return (
     <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-      <td className="text-blue pr-3"><Link href={`/transactions/${hash}`}>0x{formatLongString(hash)}</Link></td>
+      <td className="text-blue pr-3">
+        <Link href={`/transactions/${hash}`}>0x{formatLongString(hash)}</Link>
+      </td>
       <td className="px-3">{type.toUpperCase()}</td>
       <td className="text-blue px-3">
         <Link href={`/blocks/${blockHash}`}>0x{formatLongString(blockHash)}</Link>
       </td>
       <td className="text-gray-500 px-3">{formatTimeAgo(time)}</td>
-      <td className="text-blue px-3">{formatLongString(fromFormatted)}</td>
+      <td className="text-blue px-3">
+        <Link href={`/accounts/${fromFormatted}`}>{formatLongString(fromFormatted)}</Link>
+      </td>
       <td className="px-3">
         <ArrowRight className="text-green" />
       </td>
-      <td className="text-blue px-3">{formatLongString(toFormatted)}</td>
+      <td className="text-blue px-3">
+        <Link href={`/accounts/${toFormatted}`}>{formatLongString(toFormatted)}</Link>
+      </td>
       <td className="px-3">{parseFloat(new Mazzy(value).toMAZZE()).toFixed(2)}</td>
       <td className="pl-3">
         {result ? <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" /> : <CircleClose className="text-red max-md:w-[18px] max-md:h-[18px]" />}

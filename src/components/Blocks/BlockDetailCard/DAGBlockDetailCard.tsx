@@ -115,7 +115,7 @@ const DAGBlockDetailCard: React.FC<DAGBlockDetailCardProps> = ({
         </div>
         <div className="items-center  text-gray-900 break-words w-full overflow-hidden max-md:mt-1">
           <span className="break-words leading-[138%] max-md:text-xs">
-            {formatMazzeAddress(block.miner ?? '')}
+            <Link href={`/accounts/${block.miner}`}>{formatMazzeAddress(block.miner ?? '')}</Link>
             <CopyClipboard text={block.miner || ''} className="ml-1 md:ml-2 inline-block" />
           </span>
         </div>
