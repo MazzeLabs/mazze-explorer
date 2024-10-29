@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CircleCheck from "../svgs/CircleCheck";
 import CircleMinus from "../svgs/CircleMinus";
+import { CommonTransaction } from "@/contexts/BlockchainContext";
 
 interface TransactionsTableItemProps {
   hash: string;
@@ -46,6 +47,7 @@ interface TransactionsTableProps {
 
 const TransactionsTable: React.FC<TransactionsTableProps> = ({ className }) => {
   return (
+
     <div
       className={`bg-white dark:bg-dark-blue-200 rounded-[10px] ${className ?? ""
         }`}

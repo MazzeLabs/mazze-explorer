@@ -16,7 +16,8 @@ const getMazzeSdk = async (rpcUrl: string, chainId: number) => {
 
 export const getDagAccount = async (address: string) => {
     try {
-        const mazze = await getMazzeSdk(`${RPC_URL}:${RPC_PORT_DAG}`, DAG_CHAIN_ID);
+        // const mazze = await getMazzeSdk(`${RPC_URL}:${RPC_PORT_DAG}`, DAG_CHAIN_ID);
+        const mazze = await getMazzeSdk(`https://devnet-dag-rpc.mazze.io`, DAG_CHAIN_ID);
         return mazze.getAccount(sanitizeMazzeAddress(address));
     } catch (error) {
         console.log("error", error);
@@ -24,7 +25,8 @@ export const getDagAccount = async (address: string) => {
 }
 
 export const getEvmAccountBalance = async (address: string) => {
-    const provider = new ethers.JsonRpcProvider(`${RPC_URL}:${RPC_PORT_EVM}`);
+    // const provider = new ethers.JsonRpcProvider(`${RPC_URL}:${RPC_PORT_EVM}`);
+    const provider = new ethers.JsonRpcProvider(`https://devnet-rpc.mazze.io`);
     // return await provider.getBalance(mazzeAddressToHex(address) || "");
     const res = await provider.send("eth_getBalance", [address || "", "latest"]);
     if (res.startsWith("0x")) {

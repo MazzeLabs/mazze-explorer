@@ -4,8 +4,10 @@ import AccountBalanceCard from "@/components/Account/AccountBalanceCard";
 import AccountDataCard from "@/components/Account/AccountDataCard";
 import AccountInfoCard from "@/components/Account/AccountInfoCard";
 import SearchInput from "@/components/SearchInput";
+import { CommonTransaction } from "@/contexts/BlockchainContext";
+import { getDagTransactionsByAddress, getEvmTransactionsByAddress } from "@/services/api";
 import { getDagAccount, getEvmAccountBalance } from "@/services/rpc";
-import { mazzeAddressToHex } from "@/utils/helpers";
+import { createCommonTransactionFromDag, createCommonTransactionFromEvm, mazzeAddressToHex } from "@/utils/helpers";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -15,6 +17,22 @@ const Account = () => {
 
   const [accData, setAccData] = useState<any>(null);
   const [evmBalance, setEvmBalance] = useState<string>("");
+
+
+  const [accountTransactions, setAccountTransactions] = useState<CommonTransaction[]>([]);
+
+  // useEffect(() => {
+  //   Promise.all([
+  //     getEvmTransactionsByAddress(mazzeAddressToHex(address) || ""),
+  //     getDagTransactionsByAddress(mazzeAddressToHex(address) || "")
+  //   ]).then(([evmTxs, dagTxs]) => {
+  //     const mergedTxs = [...(evmTxs ?? []).map(createCommonTransactionFromEvm), ...(dagTxs ?? []).map(createCommonTransactionFromDag)];
+  //     setAccountTransactions(mergedTxs.sort((a, b) => (a.timestamp ?? 0) - (b.timestamp ?? 0)));
+  //   });
+
+  // }, [address]);
+
+
 
   useEffect(() => {
     getDagAccount(address).then(setAccData);
@@ -40,7 +58,7 @@ const Account = () => {
         }
         {/* <AccountBalanceCard className="w-full" /> */}
       </div>
-      <AccountDataCard className="mt-[18px] lg:mt-3" />
+      {/* <AccountDataCard className="mt-[18px] lg:mt-3" accountTransactions={accountTransactions} /> */}
     </main>
   );
 };

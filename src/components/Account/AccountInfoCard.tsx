@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Avatar from "@/assets/avatar.png";
 import CopyClipboard from "../CopyClipboard";
-import { formatMazzeAddress } from "@/utils/helpers";
+import { formatMazzeAddress, mazzeAddressToHex } from "@/utils/helpers";
 import { Mazzy } from "@mazze-labs/mazze-js-sdk";
 
 interface AccountInfoCardProps {
@@ -32,8 +32,14 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ base32Address, hexAdd
           </span>
         </div> */}
         <div className="pt-3 md:pt-[15px] pb-[55px] break-words h-full">
-          {formatMazzeAddress(base32Address)}{" "}
-          <CopyClipboard text={base32Address} className="inline-block ml-1" />
+          <div>
+            <span className="text-blue">{formatMazzeAddress(base32Address)}{" "}</span>
+            <CopyClipboard text={base32Address} className="inline-block ml-1" />
+          </div>
+          {/* <div>
+            EVM: <span className="text-blue">0x{mazzeAddressToHex(formatMazzeAddress(base32Address))}{" "}</span>
+            <CopyClipboard text={`0x${mazzeAddressToHex(formatMazzeAddress(base32Address))}`} className="inline-block ml-1" />
+          </div> */}
         </div>
         <div className="border-t border-gray-300 dark:border-none pt-[18px]">
           <div className="flex items-center justify-between">
@@ -57,7 +63,7 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ base32Address, hexAdd
           </div>
           <div className="flex items-center justify-between mt-2 md:mt-2.5">
             <div>
-              <span className="md:text-lg leading-[138%]">DAG Balance</span>
+              <span className="md:text-lg leading-[138%]">Balance</span>
               {' '}
               <span className="max-md:text-sm leading-[138%] text-blue">
                 {new Mazzy(dagBalance).toMAZZE()}
@@ -65,7 +71,7 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ base32Address, hexAdd
               {' '}MAZZE
             </div>
           </div>
-          <div className="flex items-center justify-between mt-2 md:mt-2.5">
+          {/* <div className="flex items-center justify-between mt-2 md:mt-2.5">
             <div>
               <span className="md:text-lg leading-[138%]">EVM Balance</span>
               {' '}
@@ -74,7 +80,7 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ base32Address, hexAdd
               </span>
               {' '}MAZZE
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useBlockchain } from "@/contexts/BlockchainContext";
+import { CommonTransaction, useBlockchain } from "@/contexts/BlockchainContext";
 import ArrowRight from "../svgs/ArrowRight";
 import CircleCheck from "../svgs/CircleCheck";
 import CircleClose from "../svgs/Failed";
@@ -9,6 +9,7 @@ import { Mazzy } from "@mazze-labs/mazze-js-sdk";
 import Link from "next/link";
 
 interface TransfersTableProps {
+  data?: CommonTransaction[];
   className?: string;
 }
 
@@ -61,7 +62,7 @@ const TransfersTableItem: React.FC<TransfersTableItemProps> = ({
   );
 };
 
-const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
+const TransfersTable: React.FC<TransfersTableProps> = ({ className, data }) => {
   const { commonTransactions } = useBlockchain();
 
   return (
@@ -102,7 +103,7 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className }) => {
             </tr>
           </thead>
           <tbody className="">
-            {commonTransactions.map((transaction) => (
+            {(data ?? commonTransactions).map((transaction) => (
               <TransfersTableItem key={transaction.hash} hash={transaction.hash ?? 'N/A'} blockHash={transaction.blockHash ?? 'N/A'} time={transaction.timestamp ?? 0} from={transaction.from ?? 'N/A'} to={transaction.to ?? 'N/A'} value={transaction.value ?? 'N/A'} result={transaction.status === "success"} type={transaction.type} />
             ))}
           </tbody>

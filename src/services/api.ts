@@ -228,4 +228,29 @@ export const getDagTransactionsByBlockHash = async (blockHash: string): Promise<
 };
 
 
+export const getEvmTransactionsByAddress = async (address: string): Promise<EVMTransaction[] | null> => {
+    try {
+        const evmBlock = await api.get(`/accounts/${address}/transactions/evm`);
+        if (evmBlock.status === 200) {
+            return evmBlock.data;
+        }
+    } catch (error) {
+        console.error("Error fetching EVM block", error);
+    }
+    return null;
+}
+
+export const getDagTransactionsByAddress = async (address: string): Promise<DAGTransaction[] | null> => {
+    try {
+        const dagBlock = await api.get(`/accounts/${address}/transactions/dag`);
+        if (dagBlock.status === 200) {
+            return dagBlock.data;
+        }
+    } catch (error) {
+        console.error("Error fetching EVM block", error);
+    }
+    return null;
+}
+
+
 export default api;
