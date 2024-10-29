@@ -43,7 +43,7 @@ const BlocksTableItem: React.FC<BlocksTableItemProps> = ({
       <td className="text-gray-500 px-3">{formatTimeAgo(age)}</td>
       <td className="text-blue px-3">{txs}</td>
       <td className="text-blue px-3 flex items-center">
-        <CircleLink className="text-green mr-1" />
+        {/* <CircleLink className="text-green mr-1" /> */}
         <Link href={`/accounts/${type === "dag" ? formatMazzeAddress(validator) : validator}`}>{formatLongString(type === "dag" ? formatMazzeAddress(validator) : `0x${validator}`)}</Link>
       </td>
       <td className="text-blue px-3">
@@ -83,7 +83,7 @@ const BlocksTable: React.FC<BlocksTableProps> = ({ className }) => {
               </th>
               <th scope="col" className="px-3">Transactions</th>
               <th scope="col" className="px-3">
-                Validator
+                Miner
               </th>
               <th scope="col" className="px-3">
                 Block hash

@@ -1,7 +1,6 @@
 "use client";
 
 import { DAGBlock, EVMBlock, getLatestDagBlocks, getLatestEvmBlocks, getLatestDagTransactions, getLatestEvmTransactions, DAGTransaction, EVMTransaction } from '@/services/api';
-import { getMazzeWallets } from '@/services/rpc';
 import { createCommonBlockFromDag, createCommonBlockFromEvm, createCommonTransactionFromDag, createCommonTransactionFromEvm } from '@/utils/helpers';
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
@@ -52,36 +51,45 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
     const [commonBlocks, setCommonBlocks] = useState<CommonBlock[]>([]);
     const [commonTransactions, setCommonTransactions] = useState<CommonTransaction[]>([]);
 
-
-
     useEffect(() => {
-        Promise.all([
-            getLatestDagBlocks(),
-            getLatestEvmBlocks(),
-            getLatestDagTransactions(),
-            getLatestEvmTransactions(),
-        ]).then(([dagBlocks, evmBlocks, dagTransactions, evmTransactions]) => {
-            setDagBlocks(dagBlocks);
-            setEvmBlocks(evmBlocks);
-            setDagTransactions(dagTransactions);
-            setEvmTransactions(evmTransactions);
-            console.log(dagTransactions);
-            console.log(evmTransactions);
-            const combinedBlocks = [
-                ...dagBlocks.map(createCommonBlockFromDag),
-                ...evmBlocks.map(createCommonBlockFromEvm)
-            ];
-            combinedBlocks.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
-            setCommonBlocks(combinedBlocks);
+        // Function to fetch all data
+        const fetchData = () => {
+            Promise.all([
+                getLatestDagBlocks(),
+                getLatestEvmBlocks(),
+                getLatestDagTransactions(),
+                getLatestEvmTransactions(),
+            ]).then(([dagBlocks, evmBlocks, dagTransactions, evmTransactions]) => {
+                setDagBlocks(dagBlocks);
+                // setEvmBlocks(evmBlocks);
+                setDagTransactions(dagTransactions);
+                // setEvmTransactions(evmTransactions);
 
-            const combinedTransactions = [
-                ...dagTransactions.map(createCommonTransactionFromDag),
-                ...evmTransactions.map(createCommonTransactionFromEvm)
-            ];
-            combinedTransactions.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
-            setCommonTransactions(combinedTransactions);
-        });
-    }, []);
+                const combinedBlocks = [
+                    ...dagBlocks.map(createCommonBlockFromDag),
+                    // ...evmBlocks.map(createCommonBlockFromEvm)
+                ];
+                combinedBlocks.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
+                setCommonBlocks(combinedBlocks);
+
+                const combinedTransactions = [
+                    ...dagTransactions.map(createCommonTransactionFromDag),
+                    // ...evmTransactions.map(createCommonTransactionFromEvm)
+                ];
+                combinedTransactions.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
+                setCommonTransactions(combinedTransactions);
+            });
+        };
+
+        // Initial fetch
+        fetchData();
+
+        // Set up interval
+        const intervalId = setInterval(fetchData, 3000);
+
+        // Cleanup interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []); // Empty dependency array to run only on mount
 
     return (
         <BlockchainContext.Provider value={{ dagBlocks, evmBlocks, commonBlocks, dagTransactions, evmTransactions, commonTransactions }}>
