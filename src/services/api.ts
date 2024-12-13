@@ -91,6 +91,7 @@ export interface EVMTransaction {
     max_fee_per_gas?: string;
     y_parity?: string;
     data?: string;
+    timestamp?: string;
 }
 
 export interface DAGTransaction {

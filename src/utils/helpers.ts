@@ -78,7 +78,7 @@ export function createCommonTransactionFromEvm(transaction: EVMTransaction): Com
     return {
         id: transaction.id,
         hash: transaction.hash,
-        timestamp: -1, // TODO: Add timestamp
+        timestamp: transaction.timestamp ? parseInt(transaction.timestamp) : undefined,
         from: transaction.from_address,
         to: transaction.to_address,
         value: transaction.value ?? '0',
