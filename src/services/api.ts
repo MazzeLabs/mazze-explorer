@@ -118,12 +118,17 @@ export interface DAGTransaction {
 }
 
 export const getLatestDagBlocks = async (): Promise<DAGBlock[]> => {
-    const response = await api.get('/dag/blocks');
-    if (response.status !== 200) {
-        console.error('Failed to fetch latest dag blocks');
+    try {
+        const response = await api.get('/dag/blocks');
+        if (response.status !== 200) {
+            console.error('Failed to fetch latest dag blocks');
+            return [];
+        }
+        return response.data.data;
+    } catch (error) {
+        console.error('Failed to fetch latest dag blocks', error);
         return [];
     }
-    return response.data.data;
 };
 
 export const getLatestDagTransactions = async (): Promise<DAGTransaction[]> => {
@@ -146,8 +151,9 @@ export const getLatestEvmTransactions = async (): Promise<EVMTransaction[]> => {
 };
 
 export const getTransactionByHash = async (txHash: string): Promise<CommonTransaction | undefined | null> => {
+    const txHashArg = txHash.startsWith("0x") ? txHash.slice(2) : txHash;
     try {
-        const evmTx = await api.get(`/evm/transactions/${txHash}`);
+        const evmTx = await api.get(`/evm/transactions/${txHashArg}`);
         if (evmTx.status === 200) {
             return createCommonTransactionFromEvm(evmTx.data);
         }
@@ -155,7 +161,7 @@ export const getTransactionByHash = async (txHash: string): Promise<CommonTransa
         console.error("Error fetching EVM transaction", error);
     }
     try {
-        const dagTx = await api.get(`/dag/transactions/${txHash}`);
+        const dagTx = await api.get(`/dag/transactions/${txHashArg}`);
         if (dagTx.status === 200) {
             return createCommonTransactionFromDag(dagTx.data);
         }
@@ -167,7 +173,8 @@ export const getTransactionByHash = async (txHash: string): Promise<CommonTransa
 
 export const getEvmBlockByHash = async (blockHash: string, includeTransactions: boolean = false): Promise<EVMBlock | null> => {
     try {
-        const evmBlock = await api.get(`/evm/blocks/${blockHash}`);
+        const blockHashArg = blockHash.startsWith("0x") ? blockHash.slice(2) : blockHash;
+        const evmBlock = await api.get(`/evm/blocks/${blockHashArg}`);
         if (evmBlock.status === 200) {
             if (includeTransactions) {
                 const txs = await getEvmTransactionsByBlockHash(evmBlock.data.hash ?? '');
@@ -186,7 +193,8 @@ export const getEvmBlockByHash = async (blockHash: string, includeTransactions: 
 
 export const getDagBlockByHash = async (blockHash: string, includeTransactions: boolean = false): Promise<DAGBlock | null> => {
     try {
-        const dagBlock = await api.get(`/dag/blocks/${blockHash}`);
+        const blockHashArg = blockHash.startsWith("0x") ? blockHash.slice(2) : blockHash;
+        const dagBlock = await api.get(`/dag/blocks/${blockHashArg}`);
         if (dagBlock.status === 200) {
             if (includeTransactions) {
                 const txs = await getDagTransactionsByBlockHash(dagBlock.data.hash ?? '');
