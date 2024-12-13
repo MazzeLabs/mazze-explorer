@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = 'force-dynamic';
 import AccountBalanceCard from "@/components/Account/AccountBalanceCard";
 import AccountDataCard from "@/components/Account/AccountDataCard";
 import AccountInfoCard from "@/components/Account/AccountInfoCard";

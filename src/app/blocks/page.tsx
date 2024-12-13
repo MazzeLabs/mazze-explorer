@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import BlocksTable from "@/components/Blocks/BlocksTable";
 import SearchInput from "@/components/SearchInput";
 

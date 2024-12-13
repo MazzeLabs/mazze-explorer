@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import SearchInput from "@/components/SearchInput";
 import TransferHistoryChart from "@/components/Transfers/TransferHistoryChart";
 import TransfersTable from "@/components/Transfers/TransfersTable";

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import NetworkAnalyze from "@/components/Analyze/NetworkAnalyze";
 import TransactionHistoryChart from "@/components/Analyze/TransactionHistoryChart";
 import LatestBlocks from "@/components/Blocks/LatestBlocks";
