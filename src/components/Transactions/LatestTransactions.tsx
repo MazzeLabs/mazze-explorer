@@ -69,9 +69,9 @@ const LatestTransactionItem: React.FC<LatestTransactionItemProps> = ({
           }
           {type === 'evm' && <>
             <span className="text-gray-500">From</span> &nbsp;&nbsp;
-            <Link href={`#`} className="text-blue">{formatLongString(from, 10)}</Link> &nbsp;&nbsp;
+            <Link href={`/accounts/${from}`} className="text-blue">{formatLongString(from, 10)}</Link> &nbsp;&nbsp;
             <span className="text-gray-500">To</span> &nbsp;&nbsp;
-            <Link href={`#`} className="text-blue">{formatLongString(to, 10)}</Link>
+            <Link href={`/accounts/${to}`} className="text-blue">{formatLongString(formatMazzeAddress(sanitizeMazzeAddress(to)), 10)}</Link>
           </>
           }
         </div>
@@ -107,7 +107,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
     >
       <div className="flex justify-between items-center py-2.5 md:py-4 px-4 md:px-8 border-b border-gray-300 dark:border-gray-600">
         <span className="md:text-lg font-bold whitespace-nowrap leading-[107%]">
-          Transactions
+          LatestTransactions
         </span>
         <div className="flex items-center">
           {/* <SwitchSelector
