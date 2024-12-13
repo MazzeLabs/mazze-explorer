@@ -15,7 +15,8 @@ const Account = () => {
   const params = useParams();
   const address = params.address as string
 
-  const [accData, setAccData] = useState<any>(null);
+  const [dagAccount, setDagAccount] = useState<any>(null);
+  const [evmAccount, setEvmAccount] = useState<any>(null);
   const [evmBalance, setEvmBalance] = useState<string>("");
 
 
@@ -35,13 +36,16 @@ const Account = () => {
 
 
   useEffect(() => {
-    getDagAccount(address).then(setAccData);
+    if (address.startsWith("0x")) {
+      return
+    }
+    getDagAccount(address).then(setDagAccount);
     getEvmAccountBalance(mazzeAddressToHex(address) || "").then((balance) => setEvmBalance(balance.toString()));
   }, [address]);
 
   useEffect(() => {
-    console.log("accData", accData);
-  }, [accData]);
+    console.log("dagAccount", dagAccount);
+  }, [dagAccount]);
 
   useEffect(() => {
     console.log("evmBalance", evmBalance);
@@ -52,13 +56,10 @@ const Account = () => {
       <div className="absolute bg-orange w-[125px] h-[300px] -rotate-[76deg] blur-[250px] right-[100px] top-[380px] -z-[1] max-md:hidden" />
       <SearchInput className="mt-2.5 md:mt-8" />
       <div className="flex max-lg:flex-col mt-6 md:mt-11 max-lg:space-y-7 lg:space-x-4">
-        {accData &&
-          // <AccountInfoCard address={accData.address} nonce={accData.nonce} accountType={'Basic'} className="w-full lg:w-[370px] col-span-12" />
-          <AccountInfoCard base32Address={accData.address} hexAddress={accData.hexAddress} nonce={accData.nonce} accountType={'Basic'} className="w-full" dagBalance={accData.balance} evmBalance={evmBalance} />
-        }
-        {/* <AccountBalanceCard className="w-full" /> */}
+        {dagAccount ?
+          <AccountInfoCard base32Address={dagAccount.address} hexAddress={dagAccount.hexAddress} nonce={dagAccount.nonce} accountType={'Basic'} className="w-full" dagBalance={dagAccount.balance} evmBalance={evmBalance} />
+          : <div className="mt-10 text-center text-lg">{address.startsWith("0x") ? 'EVM Accounts not yet supported' : 'Loading...'}</div>}
       </div>
-      {/* <AccountDataCard className="mt-[18px] lg:mt-3" accountTransactions={accountTransactions} /> */}
     </main>
   );
 };
