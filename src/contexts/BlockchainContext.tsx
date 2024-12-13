@@ -67,14 +67,14 @@ export const BlockchainProvider: React.FC<{ children: ReactNode }> = ({ children
 
                 const combinedBlocks = [
                     ...dagBlocks.map(createCommonBlockFromDag),
-                    // ...evmBlocks.map(createCommonBlockFromEvm)
+                    ...evmBlocks.map(createCommonBlockFromEvm)
                 ];
                 combinedBlocks.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
                 setCommonBlocks(combinedBlocks);
 
                 const combinedTransactions = [
                     ...dagTransactions.map(createCommonTransactionFromDag),
-                    // ...evmTransactions.map(createCommonTransactionFromEvm)
+                    ...evmTransactions.map(createCommonTransactionFromEvm)
                 ];
                 combinedTransactions.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
                 setCommonTransactions(combinedTransactions);
