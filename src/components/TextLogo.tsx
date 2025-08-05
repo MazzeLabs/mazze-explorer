@@ -9,17 +9,12 @@ const TextLogo: React.FC<TextLogoProps> = ({ dark, className }) => {
   return (
     <Link
       href={"/"}
-      className={`text-orange text-[21px] md:text-[28px] font-bold leading-[107%] ${
+      className={`text-[21px] md:text-[28px] font-bold leading-[107%] transition-all duration-300 hover:scale-105 ${
         className ?? ""
       }`}
     >
-      Mazze
-      <span
-        data-dark={dark}
-        className="text-white data-[dark=true]:text-gray-800 dark:text-gray-350"
-      >
-        Scan
-      </span>
+      <span className="mazze-text-gradient">Mazze</span>
+      <span className="text-white">Scan</span>
     </Link>
   );
 };

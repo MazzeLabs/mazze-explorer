@@ -1,18 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 import TextLogo from "../TextLogo";
-import NativeStatistics from "./NativeStatistics";
 import Logo from "../svgs/Logo";
-import Back from "@/assets/header-back.png";
 import Hambuger from "../svgs/Hambuger";
 import MobileNav from "./MobileNav";
-import { useState } from "react";
-import NetworkSwitch from "./NetworkSwitch";
-import DarkModeSwitch from "../DarkModeSwitch";
 
 const Header = () => {
   const pathname = usePathname();
@@ -20,61 +15,81 @@ const Header = () => {
 
   const home = pathname === "/";
 
+  const navItems = [
+    { href: "/", label: "Home", active: home },
+    { href: "/transactions", label: "Transactions", active: pathname.startsWith("/transactions") },
+    { href: "/blocks", label: "Blocks", active: pathname.startsWith("/blocks") },
+  ];
+
   return (
     <>
-      <header className={`relative ${!home ? "bg-dark-blue" : ""}`}>
+      <header className={`relative z-50 ${home ? 'bg-transparent' : 'bg-mazze-darkBlue/80 backdrop-blur-md border-b border-mazze-stroke/20'}`}>
+        {/* Hero background for home page */}
         {home && (
-          <Image
-            src={Back.src}
-            width={Back.width}
-            height={Back.height}
-            alt="back"
-            className="absolute top-0 left-0 right-0 md:w-full h-[150px] md:h-[250px] object-fill md:object-cover -z-[1] bg-dark-blue"
-          />
+          <div className="absolute inset-0 bg-mazze-gradient opacity-90 -z-10" />
         )}
-        <div className="container flex justify-between items-center py-1.5 md:py-2.5">
-          <div className="flex items-center max-md:order-2">
-            <TextLogo />
-            {/* <NativeStatistics className="ml-4 lg:ml-[50px] max-md:hidden" /> */}
-          </div>
-          <div className="flex items-center max-md:order-1">
-            <div className="flex items-center max-md:hidden">
-              <Link
-                href={"/"}
-                className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
-              >
-                Home
+        
+        {/* Mazze branding glow effect */}
+        {home && (
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-64 h-64 md:w-96 md:h-96 bg-mazze-orange/20 rounded-full blur-3xl -z-10 overflow-hidden" />
+        )}
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4 lg:py-6">
+            {/* Logo Section */}
+            <div className="flex items-center space-x-4">
+              <Link href="/" className="flex items-center space-x-3 group">
+                <div className="relative">
+                  <Logo className="w-8 h-8 lg:w-10 lg:h-10 text-mazze-orange group-hover:scale-110 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-mazze-orange/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <div className="hidden sm:block">
+                  <TextLogo />
+                </div>
               </Link>
-              <Link
-                href={"/transactions"}
-                className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
-              >
-                Transactions
-              </Link>
-              <Link
-                href={"/blocks"}
-                className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-[26px]"
-              >
-                Blocks
-              </Link>
-              {/* <Link
-                href={"/accounts"}
-                className="text-white hover:text-orange transition-all leading-[138%] mr-4 lg:mr-10"
-              >
-                Accounts
-              </Link> */}
+              
+              {/* Network Status Badge */}
+              <div className="hidden lg:flex items-center space-x-2">
+                <div className="w-2 h-2 bg-yellow-500 rounded-full animate-mazze-pulse" />
+                <span className="text-sm text-white/70 font-medium">Devnet</span>
+              </div>
             </div>
-            <DarkModeSwitch className="mr-5 max-md:hidden" />
-            {/* <NetworkSwitch /> */}
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 ${
+                    item.active 
+                      ? 'text-mazze-orange' 
+                      : 'text-white/80 hover:text-mazze-orange'
+                  }`}
+                >
+                  {item.label}
+                  {item.active && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-mazze-orange-gradient rounded-full" />
+                  )}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Right side actions */}
+            <div className="flex items-center space-x-4">
+              {/* Mobile menu button */}
+              <button
+                className="lg:hidden p-2 rounded-lg border border-mazze-stroke/30 hover:bg-mazze-darkBlueLight/50 transition-colors duration-200"
+                onClick={() => setMobileNavOpen(true)}
+                aria-label="Open mobile menu"
+              >
+                <Hambuger className="w-5 h-5 text-white" />
+              </button>
+            </div>
           </div>
-          <button
-            className="border border-gray-800 rounded-[3px] py-1 px-1.5 order-3 md:hidden"
-            onClick={() => setMobileNavOpen(true)}
-          >
-            <Hambuger className="text-white" />
-          </button>
         </div>
       </header>
+      
       <MobileNav open={mobileNavOpen} setOpen={setMobileNavOpen} />
     </>
   );

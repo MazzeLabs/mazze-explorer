@@ -1,138 +1,87 @@
 "use client";
 
-import useDark from "@/hooks/useDark";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Filler,
-  ChartArea,
-  ChartData,
-} from "chart.js";
-import { useEffect, useRef, useState } from "react";
-import { Chart, Line } from "react-chartjs-2";
+import { useEffect, useState } from "react";
+import { getAccountBalanceHistory } from "@/services/api";
+import { formatLongString } from "@/utils/helpers";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip
-);
-
-export const options = (dark: boolean) => ({
-  responsive: true,
-  interaction: {
-    intersect: false,
-  },
-  plugins: {
-    tooltip: {
-      usePointStyle: true,
-    },
-  },
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        display: true,
-        maxTicksLimit: 6,
-      },
-    },
-    y: {
-      ticks: {
-        count: 4,
-        color: "#737B8B",
-      },
-      grid: {
-        display: true,
-        color: dark ? "#2C3049" : "#E2E7E7",
-      },
-      border: { display: false },
-    },
-  },
-  elements: {
-    point: {
-      pointStyle: "circle",
-      radius: 0,
-      hitRadius: 12,
-      hoverRadius: 8,
-      hoverBackgroundColor: "#FD9109",
-      hoverBorderColor: "white",
-      hoverBorderWidth: 4,
-    },
-  },
-});
-
-const labels = Array(30)
-  .fill(0)
-  .map((_, i) => i);
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      fill: true,
-      data: labels.map(() => Math.random() * 60),
-      borderColor: "#FD9109",
-      tension: 0.4,
-      borderWidth: 4,
-    },
-  ],
-};
-
-function createGradient(ctx: CanvasRenderingContext2D, area: ChartArea) {
-  const colorStart = "#FFFFFF00";
-  const colorEnd = "#FD910940";
-
-  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
-
-  gradient.addColorStop(0, colorStart);
-  gradient.addColorStop(1, colorEnd);
-
-  return gradient;
+interface BalanceHistoryTabProps {
+  address: string;
+  className?: string;
 }
 
-const BalanceHistoryTab = () => {
-  const { dark } = useDark();
-  const chartRef = useRef<ChartJS>(null);
-  const [chartData, setChartData] = useState<ChartData<"bar">>({
-    datasets: [],
-  });
+const BalanceHistoryTab: React.FC<BalanceHistoryTabProps> = ({
+  address,
+  className,
+}) => {
+  const [balanceHistory, setBalanceHistory] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const chart = chartRef.current;
-
-    if (!chart) {
-      return;
-    }
-
-    const chartData = {
-      ...data,
-      datasets: data.datasets.map((dataset) => ({
-        ...dataset,
-        backgroundColor: createGradient(chart.ctx, chart.chartArea),
-      })),
+    const fetchBalanceHistory = async () => {
+      try {
+        const historyData = await getAccountBalanceHistory(address);
+        setBalanceHistory(historyData || []);
+      } catch (error) {
+        console.error("Error fetching balance history:", error);
+        setBalanceHistory([]);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    setChartData(chartData);
-  }, []);
+    fetchBalanceHistory();
+  }, [address]);
 
   return (
-    <div className="pt-9 md:pt-[60px] pb-3 md:pb-10">
-      <Chart
-        ref={chartRef}
-        type="line"
-        height={160}
-        data={chartData}
-        options={options(dark)}
-        // className="!h-[400px]"
-      />
+    <div
+      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${className ?? ""
+        }`}
+    >
+      <div className="flex justify-between items-center py-2 md:py-4 px-4 md:px-8 border-b border-gray-300 dark:border-gray-600">
+        <span className="md:text-lg font-bold whitespace-nowrap leading-[107%]">
+          Balance History
+        </span>
+      </div>
+      <div className="pr-0.5 md:pr-1">
+        <div className="max-h-[500px] md:max-h-[600px] overflow-y-auto pl-5 md:pl-8 pr-2 md:pr-6 pb-5 md:pb-8">
+          {loading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange"></div>
+            </div>
+          ) : balanceHistory.length > 0 ? (
+            balanceHistory.map((entry, index) => (
+              <div
+                key={index}
+                className="flex justify-between items-start border-b border-gray-300 dark:border-gray-600 pt-4 md:pt-[25px] pb-4 md:pb-5"
+              >
+                <div>
+                  <div className="flex items-center">
+                    <span className="text-sm md:text-lg">Balance</span>
+                    <span className="text-sm md:text-lg font-bold ml-3.5">
+                      {entry.balance} MAZZE
+                    </span>
+                  </div>
+                  <div className="flex items-center mt-1 md:mt-4 space-x-2">
+                    <span className="text-gray-500">Block</span>
+                    <span className="text-blue max-md:text-sm">
+                      {entry.blockNumber}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center max-md:hidden">
+                  <span className="text-gray-500 max-md:text-sm">
+                    {new Date(entry.timestamp * 1000).toLocaleDateString()}
+                  </span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-500">No balance history available</p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

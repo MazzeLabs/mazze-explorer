@@ -3,7 +3,7 @@ import SDK from "@mazze-labs/mazze-js-sdk";
 import { ethers } from "ethers";
 
 const DAG_RPC_URL = process.env.NEXT_PUBLIC_DAG_RPC_URL || "https://devnet-dag-rpc.mazze.io";
-const EVM_RPC_URL = process.env.NEXT_PUBLIC_EVM_RPC_URL || "https://devnet-rpc.mazze.io";
+const EVM_RPC_URL = process.env.NEXT_PUBLIC_EVM_RPC_URL || "https://devnet-evm-rpc.mazze.io";
 
 const DAG_CHAIN_ID = Number(process.env.NEXT_PUBLIC_DAG_CHAIN_ID) || 1990;
 

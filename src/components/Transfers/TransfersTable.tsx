@@ -7,6 +7,8 @@ import CircleClose from "../svgs/Failed";
 import { formatLongString, formatTimeAgo } from "@/utils/helpers";
 import { Mazzy } from "@mazze-labs/mazze-js-sdk";
 import Link from "next/link";
+import { SourceChainTypeBadge } from "../SourceChainTypeBadge";
+import { TransactionIcon } from "@/utils/icons";
 
 interface TransfersTableProps {
   data?: CommonTransaction[];
@@ -35,28 +37,46 @@ const TransfersTableItem: React.FC<TransfersTableItemProps> = ({
   type,
 }) => {
   const [fromFormatted, toFormatted] = type === "dag" ? [from.split(':')[2], to.split(':')[2]] : [from, to];
+  
+  const transactionIconBg = type === "dag" 
+    ? "bg-mazze-orange-gradient" 
+    : "bg-mazze-green-gradient";
+  
+  const transactionIconText = type === "dag" 
+    ? "text-mazze-dark" 
+    : "text-white";
+
   return (
-    <tr className="border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
-      <td className="text-blue pr-3">
-        <Link href={`/transactions/${hash}`}>{formatLongString(hash)}</Link>
+    <tr className="border-b border-mazze-stroke/20 hover:bg-mazze-darkBlueLight/30 transition-colors duration-200 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm">
+      <td className="pr-3">
+        <div className="flex items-center space-x-2">
+          <div className={`w-5 h-5 ${transactionIconBg} rounded-md flex items-center justify-center`}>
+            <TransactionIcon className={`${transactionIconText}`} />
+          </div>
+          <Link href={`/transactions/${hash}`} className="text-mazze-orange hover:text-mazze-orange/80 transition-colors duration-200">
+            {formatLongString(hash)}
+          </Link>
+        </div>
       </td>
-      <td className="px-3">{type.toUpperCase()}</td>
-      <td className="text-blue px-3">
+      <td className="px-3">
+        <SourceChainTypeBadge type={type} />
+      </td>
+      <td className="text-mazze-orange px-3 hover:text-mazze-orange/80 transition-colors duration-200">
         <Link href={`/blocks/${blockHash}`}>{formatLongString(blockHash)}</Link>
       </td>
-      <td className="text-gray-500 px-3">{formatTimeAgo(time)}</td>
-      <td className="text-blue px-3">
+      <td className="text-white/60 px-3">{formatTimeAgo(time)}</td>
+      <td className="text-mazze-orange px-3 hover:text-mazze-orange/80 transition-colors duration-200">
         <Link href={`/accounts/${fromFormatted}`}>{formatLongString(fromFormatted)}</Link>
       </td>
       <td className="px-3">
-        <ArrowRight className="text-green" />
+        <ArrowRight className="text-green-500" />
       </td>
-      <td className="text-blue px-3">
+      <td className="text-mazze-orange px-3 hover:text-mazze-orange/80 transition-colors duration-200">
         <Link href={`/accounts/${toFormatted}`}>{formatLongString(toFormatted)}</Link>
       </td>
-      <td className="px-3">{parseFloat(new Mazzy(value).toMAZZE()).toFixed(2)}</td>
+      <td className="text-white px-3">{parseFloat(new Mazzy(value).toMAZZE()).toFixed(2)} MAZZE</td>
       <td className="pl-3">
-        {result ? <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" /> : <CircleClose className="text-red max-md:w-[18px] max-md:h-[18px]" />}
+        {result ? <CircleCheck className="text-green-500 max-md:w-[18px] max-md:h-[18px]" /> : <CircleClose className="text-red-500 max-md:w-[18px] max-md:h-[18px]" />}
       </td>
     </tr>
   );
@@ -67,14 +87,12 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className, data }) => {
 
   return (
     <div
-      className={`bg-white dark:bg-dark-blue-200 dark:border dark:border-gray-750 rounded-[10px] ${className ?? ""
-        }`}
+      className={`bg-mazze-darkBlueLight/50 backdrop-blur-sm border border-mazze-stroke/20 rounded-xl shadow-mazze-card p-4 md:p-5 ${className ?? ""}`}
     >
-      <div className="overflow-x-auto px-4 md:px-5 pb-0.5">
+      <div className="overflow-x-auto">
         <table className="min-w-full">
-          <thead className="relative rounded-[10px]">
-            <div className="absolute top-0 -left-4 md:-left-5 -right-4 md:-right-5 bottom-0 bg-slate dark:bg-dark-blue-100 z-[0] rounded-[10px]" />
-            <tr className="md:*:text-lg *:leading-[138%] *:py-2.5 *:font-normal *:text-left *:whitespace-nowrap z-10 relative">
+          <thead className="relative">
+            <tr className="md:*:text-lg *:leading-[138%] *:py-2.5 *:font-semibold *:text-left *:whitespace-nowrap z-10 relative text-white/80">
               <th scope="col" className="pr-3">
                 Hash
               </th>
@@ -102,9 +120,19 @@ const TransfersTable: React.FC<TransfersTableProps> = ({ className, data }) => {
               </th>
             </tr>
           </thead>
-          <tbody className="">
+          <tbody className="text-white">
             {(data ?? commonTransactions).map((transaction) => (
-              <TransfersTableItem key={transaction.hash} hash={transaction.hash ?? 'N/A'} blockHash={transaction.blockHash ?? 'N/A'} time={transaction.timestamp ?? 0} from={transaction.from ?? 'N/A'} to={transaction.to ?? 'N/A'} value={transaction.value ?? 'N/A'} result={transaction.status === "success"} type={transaction.type} />
+              <TransfersTableItem 
+                key={transaction.hash} 
+                hash={transaction.hash ?? 'N/A'} 
+                blockHash={transaction.blockHash ?? 'N/A'} 
+                time={transaction.timestamp ?? 0} 
+                from={transaction.from ?? 'N/A'} 
+                to={transaction.to ?? 'N/A'} 
+                value={transaction.value ?? 'N/A'} 
+                result={transaction.status === "success"} 
+                type={transaction.type} 
+              />
             ))}
           </tbody>
         </table>

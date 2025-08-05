@@ -132,9 +132,37 @@ export const getLatestDagBlocks = async (): Promise<DAGBlock[]> => {
     }
 };
 
+export const getAllDagBlocks = async (page: number = 1, limit: number = 100): Promise<DAGBlock[]> => {
+    try {
+        const response = await api.get(`/dag/blocks?page=${page}&limit=${limit}`);
+        if (response.status !== 200) {
+            console.error('Failed to fetch all dag blocks');
+            return [];
+        }
+        return response.data.data;
+    } catch (error) {
+        console.error('Failed to fetch all dag blocks', error);
+        return [];
+    }
+};
+
 export const getLatestDagTransactions = async (): Promise<DAGTransaction[]> => {
     const response = await api.get('/dag/transactions');
     return response.data.data;
+};
+
+export const getAllDagTransactions = async (page: number = 1, limit: number = 100): Promise<DAGTransaction[]> => {
+    try {
+        const response = await api.get(`/dag/transactions?page=${page}&limit=${limit}`);
+        if (response.status !== 200) {
+            console.error('Failed to fetch all dag transactions');
+            return [];
+        }
+        return response.data.data;
+    } catch (error) {
+        console.error('Failed to fetch all dag transactions', error);
+        return [];
+    }
 };
 
 export const getLatestEvmBlocks = async (): Promise<EVMBlock[]> => {
@@ -146,9 +174,37 @@ export const getLatestEvmBlocks = async (): Promise<EVMBlock[]> => {
     return response.data.data;
 };
 
+export const getAllEvmBlocks = async (page: number = 1, limit: number = 100): Promise<EVMBlock[]> => {
+    try {
+        const response = await api.get(`/evm/blocks?page=${page}&limit=${limit}`);
+        if (response.status !== 200) {
+            console.error('Failed to fetch all evm blocks');
+            return [];
+        }
+        return response.data.data;
+    } catch (error) {
+        console.error('Failed to fetch all evm blocks', error);
+        return [];
+    }
+};
+
 export const getLatestEvmTransactions = async (): Promise<EVMTransaction[]> => {
     const response = await api.get('/evm/transactions');
     return response.data.data;
+};
+
+export const getAllEvmTransactions = async (page: number = 1, limit: number = 100): Promise<EVMTransaction[]> => {
+    try {
+        const response = await api.get(`/evm/transactions?page=${page}&limit=${limit}`);
+        if (response.status !== 200) {
+            console.error('Failed to fetch all evm transactions');
+            return [];
+        }
+        return response.data.data;
+    } catch (error) {
+        console.error('Failed to fetch all evm transactions', error);
+        return [];
+    }
 };
 
 export const getTransactionByHash = async (txHash: string): Promise<CommonTransaction | undefined | null> => {

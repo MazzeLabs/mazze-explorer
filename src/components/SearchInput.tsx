@@ -5,36 +5,33 @@ import Magnifier from "./svgs/Magnifier";
 import ChevronDown from "./svgs/ChevronDown";
 import { Fragment, useState } from "react";
 import { useRouter } from 'next/navigation';
+import { TransactionIcon } from "@/utils/icons";
 
 interface SearchInputProps {
   className?: string;
 }
 
-
-// TODO: enable all filters when we have the pages (addresses, blocks)
 const FILTERS = [
-  // {
-  //   name: "All Filters",
-  //   filter: "all",
-  // },
-  // {
-  //   name: "Address",
-  //   filter: "address",
-  // },
-  // {
-  //   name: "Block",
-  //   filter: "block",
-  // },
   {
     name: "Transaction",
     filter: "tx",
+    icon: <TransactionIcon className="w-4 h-4" />
   },
-];
+  {
+    name: "Block",
+    filter: "block",
+    icon: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+      </svg>
+    )
+  }
+] as const;
 
 const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
   const [filter, setFilter] = useState("tx");
-
   const [searchInput, setSearchInput] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +41,6 @@ const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
 
   const onSearch = () => {
     if (!searchInput.trim()) {
-      // Don't search if the input is empty
       return;
     }
 
@@ -52,65 +48,110 @@ const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
     const txHash = cleanedInput.startsWith('0x') ? cleanedInput.substring(2) : cleanedInput;
 
     if (/^[a-f0-9]{64}$/i.test(txHash)) {
-      console.log("Navigating to transaction", txHash);
       router.push(`/transactions/${txHash}`);
     } else {
-      console.log("Invalid transaction hash", searchInput);
       // TODO: Show an error message to the user
+      console.log("Invalid transaction hash", searchInput);
     }
   };
 
-  return (
-    <div
-      className={`relative flex items-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-blue-200 ${className ?? ""
-        }`}
-    >
-      <Menu
-        as="div"
-        className="relative inline-block text-left text-xs md:text-lg pl-5 min-w-[105px] md:min-w-[160px]"
-      >
-        <div>
-          <Menu.Button className="flex items-center justify-between whitespace-nowrap text-xs md:text-lg ">
-            {FILTERS.find((item) => item.filter === filter)?.name}
-            <ChevronDown className="text-gray-800 dark:text-gray-350 ml-3" />
-          </Menu.Button>
-        </div>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className="absolute w-[160px] md:w-[196px] left-0 mt-5 md:mt-7 pt-3 pl-4 pr-[34px] pb-[26px] bg-white dark:bg-dark-blue-200 border border-gray-300 dark:border-gray-600 rounded-[10px]">
-            {FILTERS.map((item) => (
-              <Menu.Item key={item.name}>
-                <button
-                  data-active={item.filter === filter}
-                  className="py-2 px-2.5 data-[active=true]:bg-gray-200 dark:data-[active=true]:bg-dark-blue-100 data-[active=true]:font-bold w-full text-left rounded-[10px] hover:bg-gray-200 dark:hover:bg-dark-blue-100 transition-all"
-                  onClick={() => setFilter(item.filter)}
-                >
-                  {item.name}
-                </button>
-              </Menu.Item>
-            ))}
-          </Menu.Items>
-        </Transition>
-      </Menu>
+  const currentFilter = FILTERS.find((item) => item.filter === filter);
 
-      <form onSubmit={handleSubmit} className="flex-grow">
-        <input
-          placeholder="Search transactions"
-          className="placeholder:text-gray-500 text-gray-800 dark:text-gray-350 leading-[138%] py-3 md:py-5 outline-none w-full pr-12 md:pr-20 max-md:text-xs dark:bg-dark-blue-200"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-        <button type="submit" className="absolute top-[3px] bottom-[3px] right-[6px] rounded-full bg-orange text-gray-800 dark:text-white hover:bg-dark-blue hover:text-orange transition-all p-[8px] md:p-[19px]">
-          <Magnifier className="m-auto" />
-        </button>
-      </form>
+  return (
+    <div className={`relative ${className ?? ""}`}>
+      {/* Hero section for home page */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl lg:text-6xl font-bold mb-4">
+          <span className="text-white">Explore the </span>
+          <span className="mazze-text-gradient">Mazze</span>
+          <span className="text-white"> Blockchain</span>
+        </h1>
+        <p className="text-lg lg:text-xl text-white/70 max-w-2xl mx-auto">
+          Fast. Secure. Private. Discover transactions, blocks, and network analytics in real-time.
+        </p>
+      </div>
+
+      {/* Search Container */}
+      <div className="max-w-4xl mx-auto">
+        <div className={`relative flex items-center rounded-2xl border-2 transition-all duration-300 ${
+          isFocused 
+            ? 'border-mazze-orange shadow-mazze-glow bg-mazze-darkBlueLight/80' 
+            : 'border-mazze-stroke/30 bg-mazze-darkBlueLight/50'
+        } backdrop-blur-sm`}>
+          
+          {/* Filter Dropdown */}
+          <Menu as="div" className="relative">
+            <Menu.Button className="flex items-center space-x-2 px-6 py-4 text-white/90 hover:text-white transition-colors duration-200">
+              <span className="text-lg">{currentFilter?.icon}</span>
+              <span className="font-medium">{currentFilter?.name}</span>
+              <ChevronDown className="w-4 h-4 text-white/60" />
+            </Menu.Button>
+            
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-200"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-150"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute left-0 mt-2 w-48 bg-mazze-darkBlueLight/95 backdrop-blur-md border border-mazze-stroke/30 rounded-xl shadow-mazze-card z-50">
+                <div className="py-2">
+                  {FILTERS.map((item) => (
+                    <Menu.Item key={item.name}>
+                      <button
+                        className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-mazze-orange/10 transition-colors duration-200 ${
+                          item.filter === filter ? 'text-mazze-orange bg-mazze-orange/5' : 'text-white/80'
+                        }`}
+                        onClick={() => setFilter(item.filter)}
+                      >
+                        <span className="text-lg">{item.icon}</span>
+                        <span className="font-medium">{item.name}</span>
+                      </button>
+                    </Menu.Item>
+                  ))}
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+
+          {/* Search Input */}
+          <form onSubmit={handleSubmit} className="flex-grow">
+            <input
+              placeholder={`Search ${currentFilter?.name.toLowerCase()}...`}
+              className="w-full bg-transparent text-white placeholder-white/50 text-lg py-4 px-6 outline-none"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+            />
+          </form>
+
+          {/* Search Button */}
+          <button 
+            type="submit" 
+            onClick={onSearch}
+            className="m-2 p-3 rounded-xl bg-mazze-orange-gradient text-mazze-dark hover:shadow-mazze-glow transition-all duration-300 transform hover:scale-105"
+          >
+            <Magnifier className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="flex justify-center items-center space-x-8 mt-8 text-white/60 text-sm">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-mazze-pulse" />
+            <span>Network Online</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span>40,000+ TPS</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span>1s Finality</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

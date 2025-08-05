@@ -2,15 +2,20 @@ import Link from "next/link";
 import CircleCheck from "../svgs/CircleCheck";
 import CircleMinus from "../svgs/CircleMinus";
 import { CommonTransaction } from "@/contexts/BlockchainContext";
+import { useBlockchain } from "@/contexts/BlockchainContext";
+import { formatLongString, formatTimeAgo } from "@/utils/helpers";
+import { SourceChainTypeBadge } from "../SourceChainTypeBadge";
+import { TransactionIcon } from "@/utils/icons";
 
 interface TransactionsTableItemProps {
   hash: string;
   method: string;
   block: string;
-  age: string;
+  age: number;
   fee: string;
   result: string;
   className?: string;
+  type: "dag" | "evm";
 }
 
 const TransactionsTableItem: React.FC<TransactionsTableItemProps> = ({
@@ -21,22 +26,37 @@ const TransactionsTableItem: React.FC<TransactionsTableItemProps> = ({
   fee,
   result,
   className,
+  type,
 }) => {
+  const transactionIconBg = type === "dag" 
+    ? "bg-mazze-orange-gradient" 
+    : "bg-mazze-green-gradient";
+  
+  const transactionIconText = type === "dag" 
+    ? "text-mazze-dark" 
+    : "text-white";
+
   return (
     <tr
-      className={`border-b dark:border-gray-600 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${className ?? ""
-        }`}
+      className={`border-b border-mazze-stroke/20 hover:bg-mazze-darkBlueLight/30 transition-colors duration-200 *:whitespace-nowrap *:leading-[138%] *:py-[15px] max-md:*:text-sm ${className ?? ""}`}
     >
-      <td className="text-blue pr-3">
-        <Link href={`/transactions/${hash}`}>{hash}</Link>
+      <td className="pr-3">
+        <div className="flex items-center space-x-2">
+          <div className={`w-5 h-5 ${transactionIconBg} rounded-md flex items-center justify-center`}>
+            <TransactionIcon className={`${transactionIconText}`} />
+          </div>
+          <Link href={`/transactions/${hash}`} className="text-mazze-orange hover:text-mazze-orange/80 transition-colors duration-200">
+            {formatLongString(hash)}
+          </Link>
+        </div>
       </td>
-      <td className="text-blue px-3">{method}</td>
-      <td className="text-blue px-3">{block}</td>
-      <td className="text-gray-500 px-3">{age}</td>
+      <td className="text-white px-3">{method}</td>
+      <td className="text-white px-3">{block}</td>
+      <td className="text-white/60 px-3">{formatTimeAgo(age)}</td>
       <td className="px-3">
-        <CircleCheck className="text-green max-md:w-[18px] max-md:h-[18px]" />
+        <CircleCheck className="text-green-500 max-md:w-[18px] max-md:h-[18px]" />
       </td>
-      <td className="text-blue px-3">{fee} MAZZE</td>
+      <td className="text-white pl-3">{fee} MAZZE</td>
     </tr>
   );
 };
@@ -46,17 +66,16 @@ interface TransactionsTableProps {
 }
 
 const TransactionsTable: React.FC<TransactionsTableProps> = ({ className }) => {
+  const { commonTransactions } = useBlockchain();
+  
   return (
-
     <div
-      className={`bg-white dark:bg-dark-blue-200 rounded-[10px] ${className ?? ""
-        }`}
+      className={`bg-mazze-darkBlueLight/50 backdrop-blur-sm border border-mazze-stroke/20 rounded-xl shadow-mazze-card p-4 md:p-5 ${className ?? ""}`}
     >
-      <div className="overflow-x-auto px-4 md:px-5 pb-0.5">
+      <div className="overflow-x-auto">
         <table className="min-w-full">
-          <thead className="relative rounded-[10px]">
-            <div className="absolute top-0 -left-4 md:-left-5 -right-4 md:-right-5 bottom-0 bg-slate dark:bg-dark-blue-100 z-[0] rounded-[10px]" />
-            <tr className="md:*:text-lg *:leading-[138%] *:py-2.5 *:font-normal *:text-left *:whitespace-nowrap z-10 relative">
+          <thead className="relative">
+            <tr className="md:*:text-lg *:leading-[138%] *:py-2.5 *:font-semibold *:text-left *:whitespace-nowrap z-10 relative text-white/80">
               <th scope="col" className="pr-3">
                 Tx hash
               </th>
@@ -77,71 +96,19 @@ const TransactionsTable: React.FC<TransactionsTableProps> = ({ className }) => {
               </th>
             </tr>
           </thead>
-          <tbody className="">
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="14,101"
-              age="2 hrs ago"
-              result="success"
-              fee="1"
-            />
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="14,052"
-              age="4 hrs ago"
-              result="success"
-              fee="1"
-            />
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="14,001"
-              age="4 hrs ago"
-              result="success"
-              fee="1"
-            />
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="13,887"
-              age="6 hrs ago"
-              result="success"
-              fee="1"
-            />
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="13,751"
-              age="7 hrs ago"
-              result="success"
-              fee="1"
-            />
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="13,750"
-              age="7 hrs ago"
-              result="success"
-              fee="1"
-            />
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="13,231"
-              age="10 hrs ago"
-              result="success"
-              fee="1"
-            />
-            <TransactionsTableItem
-              hash="0x57af....9b3840"
-              method="Transfer"
-              block="13,018"
-              age="11 hrs ago"
-              result="success"
-              fee="1"
-            />
+          <tbody className="text-white">
+            {commonTransactions.map((transaction, index) => (
+              <TransactionsTableItem
+                key={index}
+                hash={transaction.hash ?? ""}
+                method="Transfer"
+                block={transaction.blockHash ?? ""}
+                age={transaction.timestamp ?? 0}
+                result="success"
+                fee="1"
+                type={transaction.type}
+              />
+            ))}
           </tbody>
         </table>
       </div>

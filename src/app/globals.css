@@ -1,33 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #050B2D 0%, #080D28 50%, #0D122D 100%);
+  color: #FFFFFF;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
 *::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  background-color: #eff1f9;
-  border-radius: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #c0c0c0;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #FD9109 0%, #FFB366 100%);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #FFB366 0%, #FD9109 100%);
 }
 
 @media screen and (max-width: 768px) {
   *::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
   }
 
   *::-webkit-scrollbar-thumb {
-    border-radius: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* Mazze-specific components */
+@layer components {
+  .mazze-card {
+    @apply bg-mazze-card-gradient backdrop-blur-sm border border-mazze-stroke/20 rounded-xl shadow-mazze-card;
+  }
+  
+  .mazze-button {
+    @apply bg-mazze-orange-gradient text-mazze-dark font-semibold px-6 py-3 rounded-lg hover:shadow-mazze-glow transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .mazze-button-secondary {
+    @apply bg-transparent border border-mazze-orange text-mazze-orange font-semibold px-6 py-3 rounded-lg hover:bg-mazze-orange hover:text-mazze-dark transition-all duration-300;
+  }
+  
+  .mazze-input {
+    @apply bg-mazze-darkBlueLight/50 border border-mazze-stroke/30 rounded-lg px-4 py-3 text-white placeholder-mazze-searchText focus:border-mazze-orange focus:outline-none transition-all duration-300;
+  }
+  
+  .mazze-nav-link {
+    @apply text-white/80 hover:text-mazze-orange transition-all duration-300 font-medium;
+  }
+  
+  .mazze-nav-link-active {
+    @apply text-mazze-orange font-semibold;
+  }
+  
+  .mazze-gradient-text {
+    @apply bg-mazze-orange-gradient bg-clip-text text-transparent;
+  }
+  
+  .mazze-glow {
+    @apply shadow-mazze-glow;
+  }
+  
+  .mazze-animate-fade-in {
+    @apply animate-mazze-fade-in;
+  }
+  
+  .mazze-animate-slide-up {
+    @apply animate-mazze-slide-up;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .mazze-text-gradient {
+    background: linear-gradient(135deg, #FD9109 0%, #FFB366 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .mazze-bg-pattern {
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(253, 145, 9, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(253, 145, 9, 0.05) 0%, transparent 50%);
   }
 }

@@ -1,7 +1,9 @@
 import { CommonBlock, CommonTransaction } from "@/contexts/BlockchainContext";
 import { DAGBlock, EVMBlock, DAGTransaction, EVMTransaction } from "@/services/api";
 const SDK = require("@mazze-labs/mazze-js-sdk");
-const { decode, isValidMazzeAddress } = require("@mazze-labs/mazze-address-js");
+
+// Temporarily disable mazze-address-js to avoid JSBI.BigInt error
+// const { decode, isValidMazzeAddress } = require("@mazze-labs/mazze-address-js");
 
 export function formatTimeAgo(timestampInSeconds: number): string {
     const nowInSeconds = Math.floor(Date.now() / 1000);
@@ -94,6 +96,10 @@ export function formatMazzeAddress(address: string): string {
     return address.split(':')[address.split(':').length - 1].toLowerCase();
 }
 
+export function isValidMazzeAddress(address: string): boolean {
+    return address.startsWith("mazze:");
+}
+
 export function mazzeAddressToHex(address: string): string | undefined {
     address = address.toLowerCase();
     if (!address.includes(':')) {
@@ -101,7 +107,9 @@ export function mazzeAddressToHex(address: string): string | undefined {
     }
 
     if (isValidMazzeAddress(address)) {
-        return decode(address).hexAddress.toString('hex');
+        // Temporarily return the address as-is to avoid JSBI.BigInt error
+        // TODO: Fix when mazze-address-js is updated
+        return address;
     }
 }
 

@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Oxygen } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
-import { DarkProvider } from "@/hooks/useDark";
 import { BlockchainProvider } from "@/contexts/BlockchainContext";
 
-const oxygen = Oxygen({ weight: ["300", "400", "700"], subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "MazzeScan",
-  description: "Mazze network explorer",
+  title: "MazzeScan - Mazze Blockchain Explorer",
+  description: "Explore the Mazze blockchain network with real-time transaction data, block information, and network analytics",
+  keywords: "Mazze, blockchain, explorer, transactions, blocks, cryptocurrency",
+  authors: [{ name: "MazzeLabs" }],
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
@@ -19,16 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`bg-gray-200 dark:bg-dark-blue-100 text-gray-800 dark:text-gray-350 ${oxygen.className}`}
-      >
+    <html lang="en">
+      <body className="font-mazze bg-mazze-gradient text-white min-h-screen">
         <BlockchainProvider>
-          <DarkProvider>
+          <div className="mazze-bg-pattern min-h-screen">
             <Header />
-            {children}
+            <main className="relative">
+              {children}
+            </main>
             <Footer />
-          </DarkProvider>
+          </div>
         </BlockchainProvider>
       </body>
     </html>
